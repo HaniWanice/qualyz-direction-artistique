@@ -232,10 +232,10 @@ html{scrollbar-color:#B9C6C2 var(--paper)}
 .icgrid figcaption{font-size:13.5px; font-weight:600; color:var(--icsub); line-height:1.25}
 .ic{width:52px; height:52px; display:grid; place-items:center}
 .ic svg{width:44px; height:44px; overflow:visible}
-.ic svg *{stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke}
+.s-tile svg *{stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke}
 .icons{--ic:#0D4645; --ic2:#BFE3DF; --icbg:var(--card); --icttl:var(--deep); --icsub:var(--muted)}
 .icons[data-c="turq"]{--ic:#14706E; --ic2:#CDEFEB}
-.icons[data-c="mix"]{--ic:#0D4645; --ic2:#F2C98A}
+.icons[data-c="mix"]{--ic:#8A5A12; --ic2:#F2C98A}
 .icons[data-c="dark"]{--ic:#8FD9D4; --ic2:#1F6A68; --icbg:#0D4645; --icttl:#F4F1E8; --icsub:#B9D7D3}
 .icons[data-c="dark"] .icfam{border-color:#0D4645}
 .st-fin .a, .st-fin .d{fill:none; stroke:var(--ic); stroke-width:1.35}
@@ -418,6 +418,101 @@ dialog[open]{animation:pop .45s var(--ease)}
 .dv__ok svg{width:64px; height:64px}
 .dv__ok p{font-size:18px; color:var(--muted)}
 
+/* ---------- library icons ---------- */
+.libgrid{display:grid; grid-template-columns:repeat(5, 1fr); gap:16px 6px; margin-top:20px}
+.libgrid figure{margin:0; display:grid; justify-items:center; gap:7px; text-align:center}
+.libgrid svg{width:40px; height:40px; color:var(--ic); transition:color .3s}
+.libgrid figcaption{font-size:13px; font-weight:600; color:var(--icsub); line-height:1.25}
+.icfam .lib{font-size:13.5px; font-weight:700; color:var(--icsub); margin-top:2px}
+.dark .rate__q{color:#B9D7D3}
+
+/* ---------- real client logos ---------- */
+.lgpair{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+.cl{border:0; background:none; padding:8px; min-height:56px; display:inline-grid; place-items:center; border-radius:12px; cursor:pointer; transition:background .2s}
+.cl:hover, .cl:focus-visible{background:rgba(13,70,69,.06)}
+.cl img{height:var(--h); width:auto; max-width:none; transition:filter .35s, opacity .35s}
+.raw .cl img{height:var(--b)}
+.nb .cl img{filter:grayscale(1) contrast(1.08); opacity:.78}
+.nb .cl:hover img, .nb .cl:focus-visible img{filter:none; opacity:1}
+.clgrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:8px}
+.lgpair > *, .clgrid > *, .cmp > *{min-width:0}
+.clgrid .cl{max-width:100%; padding:8px 10px}
+.clgrid .cl img{max-width:100%; object-fit:contain}
+.clgrid > div{display:grid; place-items:center; height:104px; background:#fff; border-radius:14px; border:1px solid #E6E3DA}
+.marq .cl img{height:var(--h)}
+.raw .marq .cl img{height:var(--b)}
+.lgcard .cl{justify-self:start; padding:0}
+.vit__logo .cl img{height:var(--h)}
+.vit__nav{display:flex; align-items:center; gap:10px; margin-top:18px; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums}
+.vit__nav button{width:44px; height:44px; border-radius:50%; border:0; background:#E2DFD5; color:var(--deep); display:grid; place-items:center}
+.vit__nav svg{width:18px; height:18px}
+.seg{display:inline-flex; background:#E2DFD5; border-radius:99px; padding:3px}
+.seg button{min-height:40px; border:0; border-radius:99px; padding:6px 14px; background:none; font-weight:700; font-size:14.5px; color:var(--deep)}
+.seg button[aria-pressed="true"]{background:#fff; box-shadow:0 2px 6px -2px rgba(0,0,0,.2)}
+.pop{position:fixed; z-index:70; width:min(300px, calc(100vw - 20px)); background:var(--deep); color:#F4F1E8; border-radius:16px; padding:16px 18px; box-shadow:0 22px 40px -18px rgba(6,40,39,.6); opacity:0; transform:translateY(6px) scale(.98); pointer-events:none; transition:opacity .18s, transform .25s var(--ease)}
+.pop.on{opacity:1; transform:none}
+.pop b{display:block; font-size:17px}
+.pop q{display:block; margin-top:6px; font-size:16px; color:#D3E8E5; quotes:"« " " »"}
+.pop small{display:flex; align-items:center; gap:6px; margin-top:10px; font-size:13.5px; font-weight:700; color:var(--mint)}
+
+/* ---------- devis and sessions variants ---------- */
+.sub{font-size:clamp(26px, 2.6vw, 34px); margin:8px 0 18px}
+.sub + p{font-size:18px; color:var(--muted); margin:-8px 0 18px}
+.cmps + .sub{margin-top:56px}
+.frame{border:1px solid #E1DED4; border-radius:16px; background:#F4F2EC; overflow:hidden; position:relative; height:250px}
+.frame__page{position:absolute; inset:14px; border-radius:10px; background:#fff; padding:16px; display:grid; gap:8px; align-content:start}
+.frame__page i{display:block; height:10px; border-radius:6px; background:#ECE9E1}
+.frame__page i:nth-child(1){width:60%; height:16px; background:#D9E7E4}
+.frame__over{position:absolute; background:#fff; box-shadow:0 18px 40px -16px rgba(6,40,39,.45); border-radius:14px; padding:16px; display:grid; gap:10px; align-content:start}
+.frame__over b{font-family:var(--fd); font-weight:400; font-size:20px; color:var(--deep); line-height:1.15}
+.frame__over .fchips{margin-top:0}
+.frame__over .fchip{min-height:34px; padding:5px 12px; font-size:13.5px}
+.frame--modal .frame__over{left:15%; right:15%; top:34px}
+.frame--modal::after, .frame--drawer::after{content:""; position:absolute; inset:0; background:rgba(9,40,39,.28)}
+.frame--modal .frame__over, .frame--drawer .frame__over{z-index:1}
+.frame--full .frame__over{inset:0; border-radius:0; place-content:center; text-align:center; box-shadow:none}
+.frame--full .frame__over b{font-size:26px}
+.frame--full .frame__over .fchips{justify-content:center}
+.frame--drawer .frame__over{right:0; top:0; bottom:0; width:56%; border-radius:14px 0 0 14px}
+.frame--drawer .ln{height:30px; border-radius:8px; border:1.5px solid #E1DED4}
+.rappel{background:var(--deep); color:#F4F1E8; border-radius:18px; padding:24px; display:grid; gap:14px}
+.rappel b{font-family:var(--fd); font-weight:400; font-size:26px; line-height:1.15}
+.rappel p{color:#B9D7D3; font-size:16.5px}
+.rappel form{display:flex; gap:8px; flex-wrap:wrap}
+.rappel input{flex:1 1 180px; font:inherit; font-size:18px; min-height:52px; border-radius:99px; border:0; padding:10px 18px}
+.rappel .btn{background:var(--mint); color:#06302F}
+.rappel .ok{display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px}
+.slist{display:grid; gap:10px; margin-top:16px; max-height:430px; overflow:auto; padding-right:4px}
+.sitem{display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; background:#F8F7F3; border-radius:14px; padding:12px 14px}
+.sitem__d{width:64px; text-align:center; border-radius:12px; background:color-mix(in srgb, var(--c) 14%, #fff); color:var(--c); padding:8px 4px; line-height:1.1}
+.sitem__d b{display:block; font-family:var(--fd); font-weight:400; font-size:24px}
+.sitem__d span{font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em}
+.sitem h4{margin:0; font-size:17px; color:var(--deep)}
+.sitem p{margin:2px 0 0; font-size:14.5px; color:var(--muted)}
+.sitem .tiny{background:var(--deep); color:#fff}
+.gantt{overflow-x:auto; margin-top:16px; border-radius:12px; border:1px solid #E6E3DA; background:#fff}
+.gantt__g{display:grid; grid-template-columns:150px repeat(var(--n), 30px); align-items:center; min-width:max-content}
+.gantt__g > span{font-size:12px; font-weight:700; color:var(--muted); text-align:center; padding:8px 0; border-bottom:1px solid #EEECE5}
+.gantt__g > span.we{color:#B3BBB9; background:#FAF9F6}
+.gantt__g > span:first-child{text-align:left; padding-left:12px; position:sticky; left:0; background:#fff}
+.gantt__l{position:sticky; left:0; background:#fff; z-index:1; font-size:14.5px; font-weight:700; color:var(--deep); padding:10px 12px; display:flex; align-items:center; gap:8px; border-right:1px solid #EEECE5}
+.gantt__l i{width:10px; height:10px; border-radius:50%; background:var(--c)}
+.gantt__b{height:26px; border-radius:8px; background:var(--c); margin:6px 2px; color:#fff; font-size:12px; font-weight:800; display:grid; place-items:center; white-space:nowrap; overflow:hidden}
+.pas__lab{font-size:15px; font-weight:800; color:var(--muted); margin-top:16px}
+.pas__lab:first-child{margin-top:0}
+.cal__d.pick{background:var(--c); color:#fff}
+.pas__sum{margin-top:14px; font-size:16.5px; font-weight:700; color:var(--deep); background:#EEF6F4; border-radius:12px; padding:12px 14px}
+.cal__d:disabled{cursor:default}
+dialog.full{width:100vw; max-width:none; height:100dvh; max-height:none; margin:0; border-radius:0}
+dialog.full .dv{min-height:100dvh; max-width:760px; margin:0 auto; padding:30px 24px}
+dialog.full .dv h4{font-size:clamp(34px, 4.4vw, 54px)}
+dialog.full .fchip{min-height:56px; font-size:18px; padding:12px 20px}
+dialog.drawer{margin:0 0 0 auto; height:100dvh; max-height:none; width:min(480px, 100vw); border-radius:24px 0 0 24px}
+dialog.drawer[open]{animation:slide .45s var(--ease)}
+@keyframes slide{from{transform:translateX(40px); opacity:0}}
+dialog.drawer .dv{min-height:100dvh}
+dialog.drawer .dv__bar{visibility:hidden}
+
 /* ---------- references ---------- */
 .refs{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px}
 .ref{background:var(--card); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; display:flex; flex-direction:column}
@@ -466,6 +561,7 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
 .js .rise.in{opacity:1; transform:none}
 
 @media (max-width:1020px){
+  .lgpair{grid-template-columns:1fr}
   .top nav{display:none}
   .prog{margin-left:auto}
   .icfams, .tons, .mos{grid-template-columns:1fr}
@@ -499,6 +595,12 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
   .ton{padding:24px 20px 22px}
   .dv{padding:20px 18px 18px}
   .marq .mk{font-size:24px}
+  .libgrid svg{width:34px; height:34px}
+  .libgrid figcaption{font-size:11.5px}
+  .frame{height:220px}
+  .frame--drawer .frame__over{width:78%}
+  .sitem{grid-template-columns:auto 1fr}
+  .sitem .tiny{grid-column:1 / -1}
   .stage{padding-bottom:70px}
 }
 @media (prefers-reduced-motion: reduce){
@@ -515,7 +617,7 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
   <div class="wrap top__in">
     <a href="#debut" aria-label="Retour en haut"><span class="logo" role="img" aria-label="Qualyz"></span></a>
     <nav aria-label="Parties">
-      <a href="#styles">Styles</a><a href="#textes">Textes</a><a href="#icones">Icônes</a><a href="#logos">Logos</a><a href="#photos">Photos</a><a href="#animations">Animations</a><a href="#outils">Devis</a><a href="#references">Références</a>
+      <a href="#styles">Styles</a><a href="#textes">Textes</a><a href="#icones">Icônes</a><a href="#logos">Logos</a><a href="#outils">Devis</a><a href="#references">Références</a>
     </nav>
     <div class="prog" aria-live="polite"><span class="prog__bar"><i id="progbar"></i></span><span id="progtxt">0 notée</span></div>
     <a class="btn" href="#fin">Envoyer</a>
@@ -525,10 +627,11 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
 <main id="debut">
   <section class="intro wrap">
     <h1>Le futur qualyz.fr, à vous de <em>trancher<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20 C 70 8, 160 6, 296 16"/></svg></em>.</h1>
-    <p class="intro__lead">Des exemples concrets pour choisir le style et le ton du nouveau site. Faites défiler, regardez, et notez chaque proposition.</p>
+    <p class="intro__lead">Le but est simple : <b>donner une note à chaque proposition</b>. Vos notes me disent quoi garder, quoi jeter, et le site sera construit à partir d’elles.</p>
+    <p class="intro__lead" style="margin-top:14px; font-size:clamp(18px,1.7vw,21px); color:var(--muted)">Sous chaque exemple, une ligne de 1 à 10 : touchez un chiffre, c’est noté. Pas besoin de tout justifier, l’instinct suffit. Un commentaire si l’envie vous prend.</p>
     <div class="how">
       <p><span class="scale" aria-hidden="true"><i>1</i><i>5</i><i class="on">10</i></span><b>1</b> = pas du tout, <b>10</b> = c’est exactement ça.</p>
-      <p><b>10 à 15 minutes</b>, sur téléphone ou ordinateur.</p>
+      <p><b>Environ 10 minutes</b>, sur téléphone ou ordinateur.</p>
       <p>Vos notes restent sur cet appareil. <b>Le bouton en bas</b> me les envoie.</p>
     </div>
   </section>
@@ -551,15 +654,15 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
 
   <section class="sec wrap" id="icones">
     <div class="sec__head rise">
-      <h2>Des icônes rien qu’à Qualyz</h2>
-      <p>Six familles, toujours les six mêmes sujets. Changez la couleur pour voir chaque famille sur fond clair ou foncé.</p>
+      <h2>Quel style d’icônes ?</h2>
+      <p>Quatorze bibliothèques d’icônes professionnelles, chacune avec un caractère différent, montrées sur les dix mêmes sujets. Changez la couleur pour voir les icônes à une teinte sur fond clair ou foncé.</p>
     </div>
     <div class="icons" id="icons" data-c="deep">
       <div class="icbar" role="group" aria-label="Couleur des icônes">
         <span>Couleur :</span>
         <button class="chip" data-c="deep" aria-pressed="true"><i style="background:#0D4645"></i>Vert profond</button>
         <button class="chip" data-c="turq" aria-pressed="false"><i style="background:#14706E"></i>Turquoise</button>
-        <button class="chip" data-c="mix" aria-pressed="false"><i style="background:#F2C98A"></i>Avec une touche sable</button>
+        <button class="chip" data-c="mix" aria-pressed="false"><i style="background:#8A5A12"></i>Ocre</button>
         <button class="chip" data-c="dark" aria-pressed="false"><i style="background:#8FD9D4; box-shadow:0 0 0 3px #0D4645"></i>Sur fond foncé</button>
       </div>
       <div class="icfams" id="icfams"></div>
@@ -568,61 +671,24 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
 
   <section class="sec wrap" id="logos">
     <div class="sec__head rise">
-      <h2>Vos clients, en couleur</h2>
-      <p>Quatre façons de montrer les logos de vos clients. Tous ramenés à la même taille visuelle, pour qu’aucun n’écrase les autres. Les avis renvoient vers votre fiche Google.</p>
+      <h2>Vos clients : en couleur ou en noir et blanc ?</h2>
+      <p>Vos vrais logos clients, ramenés à la même taille visuelle pour qu’aucun n’écrase les autres. Passez la souris sur un logo : l’avis du client s’affiche, et disparaît quand vous la retirez. Sur téléphone, touchez le logo.</p>
     </div>
     <div class="lgs" id="lgs"></div>
   </section>
 
-  <section class="sec wrap" id="photos">
-    <div class="sec__head rise">
-      <h2>Les photos : quel genre d’images ?</h2>
-      <p>Pour préparer le shooting ou la vidéo de décembre. Exemples pris sur d’autres sites, touchez une image pour l’agrandir.</p>
-    </div>
-    <div class="phs" id="phs"></div>
-  </section>
 
-  <section class="sec wrap" id="animations">
-    <div class="sec__head rise">
-      <h2>Des animations simples, qui suivent le défilement</h2>
-      <p>Spectaculaire mais lisible : rien qui tourne en boucle, rien de flou. Chaque démo se lance quand elle arrive à l’écran.</p>
-    </div>
-    <div class="mos" id="mos"></div>
-  </section>
 
   <section class="sec wrap" id="outils">
     <div class="sec__head rise">
       <h2>Le devis et les sessions, sans changer de page</h2>
-      <p>Deux démos à essayer pour de vrai. Rien n’est envoyé : ce sont des maquettes.</p>
+      <p>Quatre façons de demander un devis, quatre façons de montrer les sessions. Tout s’essaie pour de vrai, rien n’est envoyé.</p>
     </div>
-    <div class="cmps">
-      <article class="cmp rise">
-        <div>
-          <h3>La demande de devis en trois questions</h3>
-          <p>Une fenêtre s’ouvre sur la page. Une question à la fois : la formation, les dates souhaitées, puis les coordonnées. On referme et on continue à lire.</p>
-          <button class="btn open" id="openDv">Essayer la demande de devis</button>
-          <div class="rate" data-id="co-devis" data-label="Demande de devis en 3 questions" data-sec="Devis et sessions"></div>
-        </div>
-        <div class="mock" aria-hidden="true">
-          <div class="mock__h">Quelle formation vous intéresse ?</div>
-          <p>Question 1 sur 3. Plusieurs choix possibles.</p>
-          <div class="fchips" id="mockchips"></div>
-        </div>
-      </article>
-      <article class="cmp rise">
-        <div>
-          <h3>Le calendrier des sessions</h3>
-          <p>On touche une ou plusieurs formations, elles prennent leur couleur, et leurs dates apparaissent dans le calendrier.</p>
-          <div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex:none; margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.2v.1" stroke-linecap="round"/></svg>Dates d’exemple. Sur le site, la mention « Dates indicatives, sous réserve de disponibilité » restera toujours visible.</div>
-          <div class="rate" data-id="co-calendrier" data-label="Calendrier des sessions" data-sec="Devis et sessions"></div>
-        </div>
-        <div class="mock">
-          <div class="fchips" id="calchips" role="group" aria-label="Formations"></div>
-          <div class="cal" id="sesscal"></div>
-          <div class="legend" id="sesslegend"></div>
-        </div>
-      </article>
-    </div>
+    <h3 class="sub">Demander un devis</h3>
+    <div class="cmps" id="devis"></div>
+    <h3 class="sub">Montrer les sessions</h3>
+    <p>Dates d’exemple. Sur le site, la mention « Dates indicatives, sous réserve de disponibilité » restera toujours visible.</p>
+    <div class="cmps" id="sess"></div>
   </section>
 
   <section class="sec wrap" id="references">
@@ -648,14 +714,14 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
         <label>Ce qu’il ne faut surtout pas<textarea id="fMoins" placeholder="Ce qui ne vous ressemble pas…"></textarea></label>
       </div>
       <div class="send">
-        <button class="btn" id="shareBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Envoyer mes notes</button>
-        <a class="btn btn--ghost" id="mailBtn" href="#">Par e-mail</a>
+        <a class="btn" id="mailBtn" href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>Envoyer par Gmail</a>
+        <button class="btn btn--ghost" id="shareBtn">Autre application</button>
         <button class="btn btn--ghost" id="copyBtn">Copier le texte</button>
-        <small>« Envoyer mes notes » ouvre le partage du téléphone : SMS, WhatsApp ou e-mail, au choix.</small>
+        <small>Sur ordinateur, Gmail s’ouvre dans un nouvel onglet avec le message prêt. Sur téléphone, c’est l’application Gmail qui s’ouvre. Il ne reste qu’à appuyer sur Envoyer.</small>
       </div>
     </div>
     <footer>
-      <span>Maquettes de travail pour Qualyz, novembre 2026. Logos clients et dates : exemples.</span>
+      <span>Maquettes de travail pour Qualyz, novembre 2026. Les dates de sessions sont des exemples.</span>
       <a href="choix-techniques.html">Les choix techniques, expliqués simplement</a>
     </footer>
   </section>
@@ -673,9 +739,10 @@ footer{padding:20px 0 60px; font-size:16px; color:var(--muted); display:flex; fl
 <dialog class="lb" id="lb"><form method="dialog"><button class="dv__x" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></form><img id="lbImg" alt=""></dialog>
 <div class="toast" id="toast" role="status"></div>
 
+<script src="assets/icons.js"></script>
 <script>
 const KEY = 'qualyz-da-fondateurs-v1';
-const MAIL_TO = ''; // adresse de réception du bouton « Par e-mail » (vide = le destinataire est à saisir)
+const MAIL_TO = 'haniwanice@gmail.com';
 let S = {r:{}, c:{}, f:{}};
 try { const raw = JSON.parse(localStorage.getItem(KEY)); if (raw && raw.r) S = Object.assign(S, raw); } catch(e) {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} paint(); };
@@ -751,11 +818,13 @@ $('#tons').innerHTML = TONS.map(x => { LABELS[x.id] = 'Ton : « ' + x.h + ' »';
   <article class="ton rise"><span class="ton__tag${x.warm ? ' warm' : ''}">${x.tag}</span><h3>${x.h}</h3><p>${x.p}</p><span class="ton__btn">${x.b}</span>
   <div class="rate" data-id="${x.id}" data-label="${esc(LABELS[x.id])}"></div></article>`; }).join('');
 
-/* ---------- icons ---------- */
-$('#icfams').innerHTML = FAMS.map(f => { LABELS[f[0]] = 'Icônes : ' + f[2]; return `
-  <article class="icfam ${f[1]} rise"><h3>${f[2]}</h3><p>${f[3]}</p>
-    <div class="icgrid">${ICONS.map(i => `<figure><span class="ic">${icon(i[0])}</span><figcaption>${i[1]}</figcaption></figure>`).join('')}</div>
-    <div class="rate" data-id="${f[0]}" data-label="${esc(LABELS[f[0]])}"></div></article>`; }).join('');
+/* ---------- icons from open libraries (Iconify data, stored locally) ---------- */
+const TOPICS = ['SSCT','Harcèlement','Économique','Trésorier','IA du CSE','Financement','Formateur','Calendrier','Téléphone','Certificat'];
+const MULTI = ['fluentc','flatc','plump','emoji','emoji3d'];
+$('#icfams').innerHTML = (window.ICON_LIBS || []).map(f => { const id = 'ic-' + f.k, multi = MULTI.includes(f.k); LABELS[id] = 'Icônes : ' + f.n; return `
+  <article class="icfam rise"><h3>${f.n}</h3><p>${f.d}${multi ? ', couleurs d’origine' : ''}</p>
+    <div class="libgrid">${f.i.map((x, j) => x ? `<figure><svg viewBox="0 0 ${x[1]} ${x[2]}" aria-hidden="true">${x[0]}</svg><figcaption>${TOPICS[j]}</figcaption></figure>` : '').join('')}</div>
+    <div class="rate" data-id="${id}" data-label="${esc(LABELS[id])}"></div></article>`; }).join('');
 document.querySelector('.icbar').addEventListener('click', e => {
   const b = e.target.closest('[data-c]'); if (!b) return;
   $('#icons').dataset.c = b.dataset.c;
@@ -763,95 +832,58 @@ document.querySelector('.icbar').addEventListener('click', e => {
   document.querySelectorAll('.icfam').forEach(f => f.classList.toggle('dark', b.dataset.c === 'dark'));
 });
 
-/* ---------- logos (fictional brands, clearly marked) ---------- */
-const SH = {
-  dot:c => `<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="${c}"/></svg>`,
-  tri:c => `<svg viewBox="0 0 20 20"><path d="M10 1.5 L19 18 H1 Z" fill="${c}"/></svg>`,
-  sq:c => `<svg viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="5" fill="${c}"/></svg>`,
-  wave:c => `<svg viewBox="0 0 26 20"><path d="M1 13 C5 4 9 4 13 11 C17 18 21 18 25 8" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/></svg>`,
-  half:c => `<svg viewBox="0 0 20 20"><path d="M10 1 A9 9 0 0 1 10 19 Z" fill="${c}"/><circle cx="10" cy="10" r="8" fill="none" stroke="${c}" stroke-width="2"/></svg>`,
-  bars:c => `<svg viewBox="0 0 20 20"><rect x="1" y="9" width="4.5" height="10" rx="1.5" fill="${c}"/><rect x="7.7" y="5" width="4.5" height="14" rx="1.5" fill="${c}"/><rect x="14.4" y="1" width="4.5" height="18" rx="1.5" fill="${c}"/></svg>`
-};
-const BRANDS = [
-  {n:'Norvia', c:'#D2381F', s:'dot', raw:40},
-  {n:'Batilis', c:'#1D5FB8', s:'sq', st:'caps', raw:20},
-  {n:'Kaskad', c:'#0E8F6E', s:'wave', raw:34},
-  {n:'Optéo', c:'#E08A00', s:'half', st:'serif', raw:24},
-  {n:'Vélia', c:'#B0287A', s:'tri', raw:38},
-  {n:'Transalpe', c:'#2B3A8F', s:'bars', st:'caps', raw:18},
-  {n:'Brivo', c:'#C9162B', s:'sq', st:'serif', raw:30},
-  {n:'Maréa', c:'#00839B', s:'wave', raw:22}
-];
-const mk = b => `<span class="mk ${b.st || ''}" style="color:${b.c}; --raw:${b.raw}px">${SH[b.s](b.c)}${b.n}</span>`;
+/* ---------- real client logos (from the current qualyz.fr strip) ---------- */
+const CLIENTS = [['onet','Onet',183,87],['leclerc','E.Leclerc',154,169],['fnac','Fnac',148,153],['carrefour','Carrefour',154,126],['intersport','Intersport',392,80],['defimat','Défi Mat',148,120],['hutchinson','Hutchinson',443,52],['stabilo','Stabilo',334,84],['uniqlo','Uniqlo',153,155],['connect','Connect',260,69]];
 const GURL = 'https://www.google.com/search?q=Qualyz+formation+CSE+avis';
-const QUOTES = ['Extrait d’un vrai avis client, deux ou trois lignes.', 'Ici, une phrase forte tirée de vos avis Google.', 'Le nom de l’élu et son entreprise, s’il est d’accord.'];
+/* wide logos get a lower height, square ones a smaller one, so they read the same size */
+const cl = (c, base) => { const h = Math.round(base * Math.pow(c[2] / c[3], -0.35)); return `<button class="cl" data-cl="${c[0]}" style="--h:${h}px; --b:${Math.round(base * .9)}px" aria-label="${c[1]}, voir l’avis"><img src="assets/clients/${c[0]}.png" alt="${c[1]}" width="${c[2]}" height="${c[3]}"></button>`; };
 const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>', PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+const segNB = `<div class="seg" role="group" aria-label="Couleur des logos"><button data-nb="0" aria-pressed="true">Couleur</button><button data-nb="1" aria-pressed="false">Noir et blanc</button></div>`;
 const LOGOS = [
-  {id:'lg-bandeau', t:'Bandeau qui défile', d:'Les logos passent lentement, en continu. S’arrête au survol et avec le bouton pause.',
-   html:() => `<div class="marq" id="marq"><div class="marq__t">${BRANDS.map(mk).join('')}<span class="dup" style="display:contents">${BRANDS.map(mk).join('')}</span></div></div>
-     <div class="lgrow" style="margin-top:16px"><button class="tiny" id="marqP" aria-label="Mettre en pause">${PAUSE}Pause</button><button class="tiny" id="rawT" aria-pressed="false">Voir sans égaliser les tailles</button></div>`},
-  {id:'lg-grille', t:'Grille calme', d:'Huit logos posés, rien ne bouge. Le plus sobre, le plus « grande maison ».',
-   html:() => `<div class="lggrid">${BRANDS.map(b => `<div>${mk(b)}</div>`).join('')}</div>`},
-  {id:'lg-cartes', t:'Cartes logo et avis', d:'Chaque logo avec un extrait d’avis. Toute la carte renvoie vers votre fiche Google.',
-   html:() => `<div class="lgcards">${BRANDS.slice(0,3).map((b,i) => `<a class="lgcard" href="${GURL}" target="_blank" rel="noopener">${mk(b)}<q>${QUOTES[i]}</q><small>${GLOGO}Lire l’avis sur Google</small></a>`).join('')}</div>`},
-  {id:'lg-vitrine', t:'Vitrine, un client à la fois', d:'Un grand logo et son avis, qui changent toutes les cinq secondes. On peut aussi choisir avec les points.',
-   html:() => `<div class="vit"><div class="vit__logo" id="vitL"></div><div class="vit__q"><div id="vitQ"></div><a href="${GURL}" target="_blank" rel="noopener">${GLOGO}&nbsp;Voir tous nos avis Google</a><div class="vit__dots" id="vitD"></div></div></div>`}
+  {id:'lg-couleur', pair:1, t:'En couleur', d:'Les vraies couleurs de chaque marque. Ça attire l’œil.', html:() => `<div class="clgrid">${CLIENTS.map(c => `<div>${cl(c, 44)}</div>`).join('')}</div>`},
+  {id:'lg-nb', pair:1, nb:1, t:'En noir et blanc', d:'Plus calme et plus « grande maison ». La couleur revient au survol.', html:() => `<div class="clgrid">${CLIENTS.map(c => `<div>${cl(c, 44)}</div>`).join('')}</div>`},
+  {id:'lg-bandeau', t:'Bandeau qui défile', d:'Les logos passent lentement, en continu. Tout s’arrête au survol et avec le bouton pause.',
+   html:() => `<div class="marq"><div class="marq__t">${CLIENTS.map(c => cl(c, 46)).join('')}<span class="dup" style="display:contents">${CLIENTS.map(c => cl(c, 46)).join('')}</span></div></div>
+     <div class="lgrow" style="margin-top:16px; flex-wrap:wrap">${segNB}<button class="tiny" data-marq aria-label="Mettre en pause">${PAUSE}Pause</button><button class="tiny" data-raw aria-pressed="false">Voir sans égaliser les tailles</button></div>`},
+  {id:'lg-cartes', t:'Cartes logo et avis', d:'Chaque client avec un extrait de son avis. La carte renvoie vers votre fiche Google.',
+   html:() => `<div class="lgcards">${CLIENTS.slice(0, 3).map(c => `<div class="lgcard">${cl(c, 40)}<q>L’avis de ce client viendra ici : la formation suivie et quelques mots.</q><small>${GLOGO}Lire l’avis sur Google</small></div>`).join('')}</div><div class="lgrow" style="margin-top:16px">${segNB}</div>`},
+  {id:'lg-vitrine', t:'Vitrine, un client à la fois', d:'Un grand logo et son avis, qui changent toutes les six secondes. Les flèches permettent de choisir.',
+   html:() => `<div class="vit"><div class="vit__logo" id="vitL"></div><div class="vit__q"><q class="fade">L’avis de ce client viendra ici, en grand : deux ou trois lignes, avec la formation suivie.</q><a href="${GURL}" target="_blank" rel="noopener">${GLOGO}&nbsp;Voir tous nos avis Google</a>
+     <div class="vit__nav"><button data-vit="-1" aria-label="Client précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button><span id="vitN"></span><button data-vit="1" aria-label="Client suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button></div></div></div><div class="lgrow" style="margin-top:16px">${segNB}</div>`}
 ];
-$('#lgs').innerHTML = LOGOS.map(x => { LABELS[x.id] = 'Logos : ' + x.t; return `
-  <article class="lg rise" id="${x.id}"><div class="lg__top"><h3>${x.t}</h3><span class="ex">Logos d’exemple</span><p>${x.d}</p></div>${x.html()}
-  <div class="rate" data-id="${x.id}" data-label="${esc(LABELS[x.id])}"></div></article>`; }).join('');
-$('#marqP').addEventListener('click', e => { const p = $('#lg-bandeau').classList.toggle('paused'); e.currentTarget.innerHTML = (p ? PLAY + 'Relancer' : PAUSE + 'Pause'); });
-$('#rawT').addEventListener('click', e => { const on = $('#lg-bandeau').classList.toggle('raw'); e.currentTarget.setAttribute('aria-pressed', on); e.currentTarget.textContent = on ? 'Revenir aux tailles égales' : 'Voir sans égaliser les tailles'; });
-let vi = 0, vt;
-const vit = i => { vi = (i + BRANDS.length) % BRANDS.length; const b = BRANDS[vi];
-  $('#vitL').innerHTML = `<div class="fade">${mk(b)}</div>`; $('#vitQ').innerHTML = `<q class="fade">${QUOTES[vi % 3]}</q>`;
-  $('#vitD').innerHTML = BRANDS.slice(0,5).map((_, k) => `<button data-v="${k}" aria-label="Client ${k+1}" aria-current="${k === vi % 5}"><i></i></button>`).join(''); };
-const vitAuto = () => { clearInterval(vt); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) vt = setInterval(() => vit((vi + 1) % 5), 5000); };
-vit(0); vitAuto();
-$('#vitD').addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) { vit(+b.dataset.v); vitAuto(); } });
-
-/* ---------- photos ---------- */
-const PHOTOS = [
-  {id:'ph-naturel', t:'Naturel, pris sur le vif', d:'Des gens en train de faire quelque chose, un rire, une vraie salle. C’est ce qui donne confiance.', src:'Oscar, Chapter, PayFit', img:['oscar','chapter','payfit']},
-  {id:'ph-pose', t:'Posé, façon studio', d:'Portraits souriants face à l’objectif, lumière parfaite. Propre, mais on le voit chez tous les concurrents.', src:'Joriana, Formoz, Unow', img:['joriana','formoz','unow']},
-  {id:'ph-illu', t:'Illustrations, sans photo', d:'Des personnages dessinés plutôt que des photos. Plus léger à produire, moins humain.', src:'Lemonade, Elusio', img:['lemonade','elusio']}
-];
-$('#phs').innerHTML = PHOTOS.map(x => { LABELS[x.id] = 'Photos : ' + x.t; return `
-  <article class="pho rise"><div class="pho__imgs">${x.img.map(i => `<button data-lb="ph-${i}" aria-label="Agrandir l’exemple ${i}"><img src="assets/ph-${i}.jpg" alt="" loading="lazy"></button>`).join('')}</div>
-  <h3>${x.t}</h3><p>${x.d}</p><p class="src">Exemples : ${x.src}</p>
-  <div class="rate" data-id="${x.id}" data-label="${esc(LABELS[x.id])}"></div></article>`; }).join('');
-
-/* ---------- motion ---------- */
-const MOS = [
-  {id:'an-reveal', t:'Les blocs qui montent', d:'Chaque bloc glisse doucement en place quand on arrive dessus. La base de tout le site.', k:'reveal',
-   s:`<div class="rv"><div>Formation SSCT</div><div>Formation économique</div><div>Référent harcèlement</div></div><button class="replay" data-replay>Rejouer</button>`},
-  {id:'an-count', t:'Le chiffre qui monte', d:'Un vrai chiffre, avec son année. Il compte jusqu’au total quand il apparaît.', k:'count',
-   s:`<div><div class="count" data-to="600">0</div><p>élus de CSE formés en 2026</p></div><button class="replay" data-replay>Rejouer</button>`},
-  {id:'an-circle', t:'Le mot entouré à la main', d:'Un trait se dessine autour du mot qui compte. Il guide l’œil sans rien ajouter.', k:'circle', light:1,
-   s:`<p class="cw">Vos élus formés,<br><span class="draw">sereinement<svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path d="M40 92 C 10 70, 20 22, 120 14 C 220 6, 292 30, 288 64 C 284 100, 190 112, 110 106 C 60 102, 26 92, 34 70"/></svg></span></p><button class="replay" data-replay>Rejouer</button>`},
-  {id:'an-steps', t:'Les étapes qui se remplissent', d:'Une ligne verticale qui avance étape par étape, au rythme du défilement.', k:'steps',
-   s:`<ol class="steps"><span class="bar"></span><li>Vous choisissez la formation</li><li>Vous proposez vos dates</li><li>On vous rappelle</li><li>On s’occupe des documents</li><li>Vos élus sont formés</li></ol><button class="replay" data-replay>Rejouer</button>`},
-  {id:'an-flip', t:'La carte qui se retourne', d:'Une question d’un côté, la réponse de l’autre. On participe au lieu de lire.', k:'flip', light:1,
-   s:`<button class="flip" aria-pressed="false" aria-label="Retourner la carte"><span class="flip__in"><span class="flip__f"><b>Qui paie la formation SSCT ?</b><small>Touchez pour voir la réponse</small></span><span class="flip__b"><b>L’employeur, pas le budget du CSE.</b><small>Exemple de contenu, à faire valider</small></span></span></button>`},
-  {id:'an-link', t:'Le lien qui se souligne', d:'Au survol, un trait turquoise se dessine sous le lien. On voit tout de suite ce qui est cliquable.', k:'link',
-   s:`<div style="text-align:center"><a class="ulink" href="#animations">Voir le programme de la formation SSCT</a><small>Passez la souris dessus, ou touchez-le</small></div>`}
-];
-$('#mos').innerHTML = MOS.map(x => { LABELS[x.id] = 'Animation : ' + x.t; return `
-  <article class="mo rise" data-k="${x.k}"><div class="stage${x.light ? ' light' : ''}">${x.s}</div>
-  <div class="mo__b"><h3>${x.t}</h3><p>${x.d}</p><div class="rate" data-id="${x.id}" data-label="${esc(LABELS[x.id])}"></div></div></article>`; }).join('');
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const runCount = el => { const to = +el.dataset.to; if (reduce) { el.textContent = to + '+'; return; }
-  const t0 = performance.now(), dur = 1700; const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4); el.textContent = Math.round(to * e) + (p === 1 ? '+' : ''); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
-const play = card => { const st = card.querySelector('.stage'), k = card.dataset.k;
-  if (k === 'count') return runCount(card.querySelector('.count'));
-  if (k === 'circle') { const cw = card.querySelector('.cw'); cw.classList.remove('go'); void cw.offsetWidth; cw.classList.add('go'); return; }
-  st.classList.remove('go'); void st.offsetWidth; st.classList.add('go'); };
-const mio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { play(e.target); mio.unobserve(e.target); } }), {threshold:.55});
-document.querySelectorAll('.mo').forEach(c => mio.observe(c));
-$('#mos').addEventListener('click', e => {
-  const r = e.target.closest('[data-replay]'); if (r) play(r.closest('.mo'));
-  const f = e.target.closest('.flip'); if (f) f.setAttribute('aria-pressed', f.getAttribute('aria-pressed') !== 'true');
+const lgCard = x => { LABELS[x.id] = 'Logos : ' + x.t; return `<article class="lg rise${x.nb ? ' nb' : ''}" id="${x.id}"><div class="lg__top"><h3>${x.t}</h3><p>${x.d}</p></div>${x.html()}
+  <div class="rate" data-id="${x.id}" data-label="${esc(LABELS[x.id])}"></div></article>`; };
+$('#lgs').innerHTML = `<div class="lgpair">${LOGOS.filter(x => x.pair).map(lgCard).join('')}</div>` + LOGOS.filter(x => !x.pair).map(lgCard).join('');
+$('#lgs').addEventListener('click', e => {
+  const sg = e.target.closest('[data-nb]'); if (sg) { const card = sg.closest('.lg'); card.classList.toggle('nb', sg.dataset.nb === '1'); sg.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === sg)); }
+  const mq = e.target.closest('[data-marq]'); if (mq) { const p = $('#lg-bandeau').classList.toggle('paused'); mq.innerHTML = p ? PLAY + 'Relancer' : PAUSE + 'Pause'; }
+  const rw = e.target.closest('[data-raw]'); if (rw) { const on = $('#lg-bandeau').classList.toggle('raw'); rw.setAttribute('aria-pressed', on); rw.textContent = on ? 'Revenir aux tailles égales' : 'Voir sans égaliser les tailles'; }
+  const vb = e.target.closest('[data-vit]'); if (vb) { vit(vi + +vb.dataset.vit); vitAuto(); }
 });
+let vi = 0, vt;
+const vit = i => { vi = (i + CLIENTS.length) % CLIENTS.length; $('#vitL').innerHTML = `<div class="fade">${cl(CLIENTS[vi], 96)}</div>`; $('#vitN').textContent = (vi + 1) + ' / ' + CLIENTS.length; };
+const vitAuto = () => { clearInterval(vt); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) vt = setInterval(() => vit(vi + 1), 6000); };
+vit(0); vitAuto();
+
+/* hover popup: appears on mouse enter, disappears on mouse leave; tap on touch screens */
+const pop = document.createElement('div'); pop.className = 'pop'; pop.setAttribute('role', 'tooltip'); document.body.appendChild(pop);
+let popFor = null;
+const showPop = el => { const c = CLIENTS.find(x => x[0] === el.dataset.cl); if (!c) return;
+  pop.innerHTML = `<b>${c[1]}</b><q>L’avis de ce client viendra ici : la formation suivie, la note et quelques mots.</q><small>${GLOGO}Avis Google</small>`;
+  pop.classList.add('on'); const r = el.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+  let x = Math.max(10, Math.min(innerWidth - pw - 10, r.left + r.width / 2 - pw / 2)), y = r.top - ph - 10; if (y < 74) y = r.bottom + 10;
+  pop.style.left = x + 'px'; pop.style.top = y + 'px'; popFor = el; };
+const hidePop = () => { pop.classList.remove('on'); popFor = null; };
+const touchy = matchMedia('(hover: none)').matches;
+document.addEventListener('mouseover', e => { const el = e.target.closest('.cl'); if (el && el !== popFor) showPop(el); });
+document.addEventListener('mouseout', e => { const el = e.target.closest('.cl'); if (el && !el.contains(e.relatedTarget)) hidePop(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('.cl'); if (el) showPop(el); });
+document.addEventListener('focusout', e => { if (e.target.closest('.cl')) hidePop(); });
+document.addEventListener('click', e => { const el = e.target.closest('.cl');
+  if (!el) { hidePop(); return; }
+  if (touchy && popFor !== el) { showPop(el); return; }
+  window.open(GURL, '_blank', 'noopener'); });
+addEventListener('scroll', () => { if (popFor && touchy) hidePop(); else if (popFor) showPop(popFor); }, {passive:true});
 
 /* ---------- formations, calendars ---------- */
 const FORM = [
@@ -860,60 +892,129 @@ const FORM = [
 ];
 const MONTHS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 const ARROW = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="${d ? 'M9 5l7 7-7 7' : 'M15 5l-7 7 7 7'}"/></svg>`;
-/* fictional sessions, January and February 2027 (shown as examples only) */
-const SESS = {
-  ssct:[[0,11,15],[0,25,29],[1,15,19]], eco:[[0,18,22],[1,8,12]], harc:[[0,7,7],[0,21,21],[1,4,4]], treso:[[0,13,14],[1,23,24]], ia:[[0,27,27],[1,17,17]]
-};
-const calHTML = (y, m, cellFn, nav) => {
+/* fictional sessions, January and February 2027 (examples only) */
+const SESS = { ssct:[[0,11,15],[0,25,29],[1,15,19]], eco:[[0,18,22],[1,8,12]], harc:[[0,7,7],[0,21,21],[1,4,4]], treso:[[0,13,14],[1,23,24]], ia:[[0,27,27],[1,17,17]] };
+const calHTML = (y, m, cellFn, nav, id) => {
   const first = new Date(y, m, 1), off = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
   let g = ['L','M','M','J','V','S','D'].map(d => `<span aria-hidden="true">${d}</span>`).join('');
   for (let i = 0; i < off; i++) g += '<span class="cal__d off"></span>';
   for (let d = 1; d <= days; d++) g += cellFn(d, ((off + d - 1) % 7) >= 5);
-  return `<div class="cal__h"><b>${MONTHS[m][0].toUpperCase() + MONTHS[m].slice(1)} ${y}</b><div><button data-cm="-1" aria-label="Mois précédent" ${nav === 0 ? 'disabled style="opacity:.35"' : ''}>${ARROW(0)}</button><button data-cm="1" aria-label="Mois suivant" ${nav === 1 ? 'disabled style="opacity:.35"' : ''}>${ARROW(1)}</button></div></div><div class="cal__g">${g}</div>`;
+  return `<div class="cal__h"><b>${MONTHS[m][0].toUpperCase() + MONTHS[m].slice(1)} ${y}</b><div><button data-cm="-1" ${id ? `data-cal="${id}"` : ''} aria-label="Mois précédent" ${nav === 0 ? 'disabled style="opacity:.35"' : ''}>${ARROW(0)}</button><button data-cm="1" ${id ? `data-cal="${id}"` : ''} aria-label="Mois suivant" ${nav === 1 ? 'disabled style="opacity:.35"' : ''}>${ARROW(1)}</button></div></div><div class="cal__g">${g}</div>`;
 };
-let selF = new Set(['ssct']), sm = 0;
-const paintSess = () => {
-  $('#calchips').innerHTML = FORM.map(f => `<button class="fchip" style="--c:${f.c}" data-f="${f.k}" aria-pressed="${selF.has(f.k)}"><i></i>${f.n}</button>`).join('');
-  const cell = (d, we) => { const hits = FORM.filter(f => selF.has(f.k) && SESS[f.k].some(s => s[0] === sm && d >= s[1] && d <= s[2]));
-    const c = hits[0] ? hits[0].c : '#ccc';
-    return `<span class="cal__d${we ? ' we' : ''}${hits.length ? ' has' : ''}" style="--c:${c}">${d}<span class="dots">${hits.map(h => `<i style="--c:${h.c}"></i>`).join('')}</span></span>`; };
-  $('#sesscal').innerHTML = calHTML(2027, sm, cell, sm);
-  const rows = FORM.filter(f => selF.has(f.k)).flatMap(f => SESS[f.k].filter(s => s[0] === sm).map(s => `<div style="--c:${f.c}"><i></i>${f.n} <span>· ${s[1] === s[2] ? 'le ' + s[1] : 'du ' + s[1] + ' au ' + s[2]} ${MONTHS[sm]}</span></div>`));
-  $('#sesslegend').innerHTML = rows.length ? rows.join('') : '<div><span>Touchez une formation pour voir ses dates.</span></div>';
-};
-paintSess();
-$('#calchips').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (!b) return; selF.has(b.dataset.f) ? selF.delete(b.dataset.f) : selF.add(b.dataset.f); paintSess(); });
-$('#sesscal').addEventListener('click', e => { const b = e.target.closest('[data-cm]'); if (!b) return; sm = Math.max(0, Math.min(1, sm + +b.dataset.cm)); paintSess(); });
-$('#mockchips').innerHTML = FORM.map((f, i) => `<span class="fchip" style="--c:${f.c}" aria-pressed="${i === 0}"><i></i>${f.n}</span>`).join('');
+const chips = (sel, attr, multi = true) => FORM.map(f => `<button class="fchip" style="--c:${f.c}" ${attr}="${f.k}" aria-pressed="${multi ? sel.has(f.k) : sel === f.k}"><i></i>${f.n}</button>`).join('');
+const range = (a, b) => a === b ? 'le ' + a : 'du ' + a + ' au ' + b;
+const cmpCard = (id, t, d, demo, side) => { LABELS[id] = 'Devis et sessions : ' + t; return `<article class="cmp rise"><div><h3>${t}</h3><p>${d}</p>${side || ''}<div class="rate" data-id="${id}" data-label="${esc(LABELS[id])}"></div></div><div class="mock">${demo}</div></article>`; };
+const frameChips = FORM.slice(0, 3).map((f, i) => `<span class="fchip" style="--c:${f.c}" aria-pressed="${i === 0}"><i></i>${f.n}</span>`).join('');
+const page = '<div class="frame__page"><i></i><i></i><i></i><i></i><i></i></div>';
 
-/* ---------- devis dialog ---------- */
-const dv = $('#dv'); let step = 0, dvF = new Set(), dvD = new Set(), dvM = 0;
+$('#devis').innerHTML = [
+  cmpCard('co-devis-fenetre', 'Une fenêtre, trois questions', 'Une fenêtre s’ouvre au milieu de la page. Une question à la fois : la formation, les dates souhaitées, les coordonnées.',
+    `<div class="frame frame--modal" aria-hidden="true">${page}<div class="frame__over"><b>Quelle formation vous intéresse ?</b><div class="fchips">${frameChips}</div></div></div>`,
+    `<button class="btn open" data-dv="modal">Essayer</button>`),
+  cmpCard('co-devis-plein', 'Plein écran, une question à la fois', 'L’écran entier pour une seule question, en très gros. Zéro distraction, la charge mentale la plus faible.',
+    `<div class="frame frame--full" aria-hidden="true">${page}<div class="frame__over"><b>Quelle formation vous intéresse ?</b><div class="fchips">${frameChips}</div></div></div>`,
+    `<button class="btn open" data-dv="full">Essayer</button>`),
+  cmpCard('co-devis-tiroir', 'Un panneau qui glisse sur le côté', 'Le formulaire arrive par la droite, tout sur un seul écran. La page reste visible derrière.',
+    `<div class="frame frame--drawer" aria-hidden="true">${page}<div class="frame__over"><b>Demander un devis</b><div class="fchips">${frameChips}</div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div></div>`,
+    `<button class="btn open" data-dv="drawer">Essayer</button>`),
+  cmpCard('co-devis-rappel', 'Juste « Être rappelé »', 'Un seul champ, le téléphone. Pour ceux qui préfèrent parler à quelqu’un plutôt que remplir un formulaire.',
+    `<div class="rappel" id="rappel"><b>On vous rappelle sous 15 minutes.</b><p>Laissez votre numéro, un conseiller vous appelle pour parler de votre formation.</p><form><label class="sr" for="rpTel">Votre téléphone</label><input id="rpTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78"><button class="btn" type="submit">Me rappeler</button></form></div>`)
+].join('');
+
+$('#sess').innerHTML = [
+  cmpCard('co-sess-mois', 'Le calendrier du mois', 'On touche une ou plusieurs formations, elles prennent leur couleur, et leurs dates apparaissent dans le calendrier.',
+    `<div class="fchips" id="mChips" role="group" aria-label="Formations"></div><div class="cal" id="mCal"></div><div class="legend" id="mLeg"></div>`),
+  cmpCard('co-sess-liste', 'La liste des prochaines sessions', 'Comme un agenda : la date en gros, la formation, et un bouton pour demander cette date.',
+    `<div class="fchips" id="lChips" role="group" aria-label="Formations"></div><div class="slist" id="lList"></div>`),
+  cmpCard('co-sess-frise', 'Le planning en frise', 'Toutes les formations du mois sur une seule vue, comme un planning. On voit d’un coup d’œil ce qui tombe quand.',
+    `<div class="cal__h" style="margin-bottom:0"><b id="gT"></b><div><button data-gm="-1" aria-label="Mois précédent">${ARROW(0)}</button><button data-gm="1" aria-label="Mois suivant">${ARROW(1)}</button></div></div><div class="gantt" id="gG"></div>`),
+  cmpCard('co-sess-pas', 'Choisir sa formation, puis ses jours', 'D’abord la formation, ensuite le nombre de jours, enfin le jour de départ. Tout est libre : c’est un souhait, on confirme ensuite.',
+    `<div class="pas__lab">1. La formation</div><div class="fchips" id="pChips"></div><div class="pas__lab">2. Combien de jours ?</div><div class="fchips" id="pDays"></div><div class="pas__lab">3. Le jour de départ</div><div class="cal" id="pCal"></div><div class="pas__sum" id="pSum"></div>`)
+].join('');
+
+/* month calendar */
+let mSel = new Set(['ssct']), mM = 0;
+const paintM = () => {
+  $('#mChips').innerHTML = chips(mSel, 'data-mf');
+  $('#mCal').innerHTML = calHTML(2027, mM, (d, we) => { const hits = FORM.filter(f => mSel.has(f.k) && SESS[f.k].some(s => s[0] === mM && d >= s[1] && d <= s[2]));
+    return `<span class="cal__d${we ? ' we' : ''}${hits.length ? ' has' : ''}" style="--c:${hits[0] ? hits[0].c : '#ccc'}">${d}<span class="dots">${hits.map(h => `<i style="--c:${h.c}"></i>`).join('')}</span></span>`; }, mM, 'm');
+  const rows = FORM.filter(f => mSel.has(f.k)).flatMap(f => SESS[f.k].filter(s => s[0] === mM).map(s => `<div style="--c:${f.c}"><i></i>${f.n} <span>· ${range(s[1], s[2])} ${MONTHS[mM]}</span></div>`));
+  $('#mLeg').innerHTML = rows.length ? rows.join('') : '<div><span>Touchez une formation pour voir ses dates.</span></div>'; };
+/* list */
+let lSel = new Set(FORM.map(f => f.k));
+const MSHORT = ['janv.','févr.'];
+const paintL = () => {
+  $('#lChips').innerHTML = chips(lSel, 'data-lf');
+  const items = FORM.filter(f => lSel.has(f.k)).flatMap(f => SESS[f.k].map(s => ({f, m:s[0], a:s[1], b:s[2]}))).sort((x, y) => x.m - y.m || x.a - y.a);
+  $('#lList').innerHTML = items.length ? items.map(x => `<div class="sitem" style="--c:${x.f.c}"><div class="sitem__d"><b>${x.a}${x.a !== x.b ? '–' + x.b : ''}</b><span>${MSHORT[x.m]}</span></div><div><h4>${x.f.n}</h4><p>${x.b - x.a + 1} jour${x.b > x.a ? 's' : ''} · en présentiel ou à distance</p></div><button class="tiny" data-ask="${x.f.k}">Demander cette date</button></div>`).join('') : '<p style="color:var(--muted)">Touchez une formation pour voir ses sessions.</p>'; };
+/* gantt */
+let gM = 0;
+const paintG = () => {
+  const days = new Date(2027, gM + 1, 0).getDate(), off = (new Date(2027, gM, 1).getDay() + 6) % 7, L = ['L','M','M','J','V','S','D'];
+  $('#gT').textContent = MONTHS[gM][0].toUpperCase() + MONTHS[gM].slice(1) + ' 2027';
+  let h = '<span>Formation</span>' + Array.from({length:days}, (_, i) => { const w = (off + i) % 7; return `<span class="${w >= 5 ? 'we' : ''}">${L[w]}<br>${i + 1}</span>`; }).join('');
+  FORM.forEach((f, r) => { h += `<div class="gantt__l" style="--c:${f.c}; grid-row:${r + 2}"><i></i>${f.n}</div>`;
+    SESS[f.k].filter(s => s[0] === gM).forEach(s => { h += `<div class="gantt__b" style="--c:${f.c}; grid-row:${r + 2}; grid-column:${s[1] + 1} / ${s[2] + 2}" title="${f.n} ${range(s[1], s[2])}">${s[2] - s[1] + 1} j</div>`; }); });
+  $('#gG').innerHTML = `<div class="gantt__g" style="--n:${days}">${h}</div>`; };
+/* step by step */
+let pF = 'ssct', pN = 5, pStart = null, pM = 0;
+const pDays = d0 => { const out = []; let d = d0; const dim = new Date(2027, pM + 1, 0).getDate();
+  while (out.length < pN && d <= dim) { const w = new Date(2027, pM, d).getDay(); if (w !== 0 && w !== 6) out.push(d); d++; } return out; };
+const paintP = () => {
+  const f = FORM.find(x => x.k === pF);
+  $('#pChips').innerHTML = chips(pF, 'data-pf', false);
+  $('#pDays').innerHTML = [1,2,3,4,5].map(n => `<button class="fchip" style="--c:${f.c}" data-pn="${n}" aria-pressed="${n === pN}">${n} jour${n > 1 ? 's' : ''}</button>`).join('');
+  const picked = pStart ? pDays(pStart) : [];
+  $('#pCal').innerHTML = calHTML(2027, pM, (d, we) => `<button class="cal__d${we ? ' we' : ''}${picked.includes(d) ? ' pick' : ''}" style="--c:${f.c}" data-pd="${d}" ${we ? 'disabled' : ''} aria-pressed="${picked.includes(d)}">${d}</button>`, pM, 'p');
+  $('#pSum').textContent = picked.length ? `${f.n}, ${pN} jour${pN > 1 ? 's' : ''} : ${range(picked[0], picked[picked.length - 1])} ${MONTHS[pM]} 2027 (souhait, à confirmer)` : 'Touchez le jour de départ souhaité.'; };
+paintM(); paintL(); paintG(); paintP();
+const tog = (set, k) => set.has(k) ? set.delete(k) : set.add(k);
+$('#sess').addEventListener('click', e => {
+  const t = e.target.closest('button'); if (!t) return; const ds = t.dataset;
+  if (ds.mf) { tog(mSel, ds.mf); paintM(); }
+  if (ds.cal === 'm') { mM = Math.max(0, Math.min(1, mM + +ds.cm)); paintM(); }
+  if (ds.lf) { tog(lSel, ds.lf); paintL(); }
+  if (ds.ask) { dvF = new Set([ds.ask]); openDv('modal', 1); }
+  if (ds.gm) { gM = Math.max(0, Math.min(1, gM + +ds.gm)); paintG(); }
+  if (ds.pf) { pF = ds.pf; paintP(); }
+  if (ds.pn) { pN = +ds.pn; paintP(); }
+  if (ds.pd) { pStart = +ds.pd; paintP(); }
+  if (ds.cal === 'p') { pM = Math.max(0, Math.min(1, pM + +ds.cm)); pStart = null; paintP(); }
+});
+$('#rappel form').addEventListener('submit', e => { e.preventDefault();
+  $('#rappel').innerHTML = `<b>C’est noté.</b><div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Un conseiller vous rappelle sous 15 minutes.</div><p>Démo : rien n’est envoyé.</p>`; });
+
+/* ---------- devis dialog (modal, full screen or side drawer) ---------- */
+const dv = $('#dv'); let step = 0, dvF = new Set(), dvD = new Set(), dvM = 0, dvMode = 'modal';
 const dvBase = new Date(); const dvY0 = dvBase.getFullYear(), dvM0 = dvBase.getMonth();
+const fields = `<label>Nom et prénom<input autocomplete="name" placeholder="Ex. Marie Dupont"></label><label>Entreprise<input autocomplete="organization"></label>
+    <label>Téléphone<input type="tel" autocomplete="tel" inputmode="tel"></label><label>E-mail<input type="email" autocomplete="email"></label>`;
+const dvChips = () => `<div class="fchips">${FORM.map(f => `<button class="fchip" style="--c:${f.c}" data-df="${f.k}" aria-pressed="${dvF.has(f.k)}"><i></i>${f.n}</button>`).join('')}<button class="fchip" style="--c:#4D5F5D" data-df="autre" aria-pressed="${dvF.has('autre')}"><i></i>Je ne sais pas encore</button></div>`;
 const dvRender = () => {
-  $('#dvStep').textContent = step < 3 ? `Question ${step + 1} sur 3` : 'Demande envoyée';
+  const drawer = dvMode === 'drawer';
+  $('#dvStep').textContent = step === 3 ? 'Demande envoyée' : drawer ? 'Demande de devis' : `Question ${step + 1} sur 3`;
   $('#dvBar').style.width = ((step + 1) / 3 * 100) + '%';
   $('#dvNav').style.display = step < 3 ? '' : 'none';
-  $('#dvBack').style.visibility = step ? 'visible' : 'hidden';
-  $('#dvNext').textContent = step === 2 ? 'Envoyer ma demande' : 'Continuer';
+  $('#dvBack').style.visibility = step && !drawer ? 'visible' : 'hidden';
+  $('#dvNext').textContent = step === 2 || drawer ? 'Envoyer ma demande' : 'Continuer';
   const b = $('#dvBody');
-  if (step === 0) b.innerHTML = `<h4 id="dvTitle">Quelle formation vous intéresse ?</h4><p style="font-size:17px;color:var(--muted);margin-top:8px">Plusieurs choix possibles.</p>
-    <div class="fchips">${FORM.map(f => `<button class="fchip" style="--c:${f.c}" data-df="${f.k}" aria-pressed="${dvF.has(f.k)}"><i></i>${f.n}</button>`).join('')}<button class="fchip" style="--c:#4D5F5D" data-df="autre" aria-pressed="${dvF.has('autre')}"><i></i>Je ne sais pas encore</button></div>`;
+  if (step === 3) { b.innerHTML = `<div class="dv__ok"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#D6EEEB"/><path d="M20 33 l8 8 l16 -18" fill="none" stroke="#14706E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h4 id="dvTitle">Merci, on vous rappelle sous 15 minutes.</h4><p>Ici, rien n’est envoyé : c’est une démo.<br>Vous pouvez refermer et continuer à lire.</p><button class="btn" id="dvDone">Fermer</button></div>`; return; }
+  if (drawer) { b.innerHTML = `<h4 id="dvTitle">Demander un devis</h4><p style="font-size:17px;color:var(--muted);margin-top:8px">Tout sur un écran. Réponse sous 15 minutes.</p>${dvChips()}<label>Dates souhaitées (facultatif)<input placeholder="Ex. la semaine du 18 janvier"></label>${fields}`; return; }
+  if (step === 0) b.innerHTML = `<h4 id="dvTitle">Quelle formation vous intéresse ?</h4><p style="font-size:17px;color:var(--muted);margin-top:8px">Plusieurs choix possibles.</p>${dvChips()}`;
   if (step === 1) { const d0 = new Date(dvY0, dvM0 + dvM, 1), y = d0.getFullYear(), m = d0.getMonth();
     const cell = (d, we) => { const k = `${y}-${m}-${d}`; return `<button class="cal__d${we ? ' we' : ''}${dvD.has(k) ? ' sel' : ''}" data-dd="${k}" aria-pressed="${dvD.has(k)}" aria-label="${d} ${MONTHS[m]}">${d}</button>`; };
     b.innerHTML = `<h4 id="dvTitle">Quelles dates vous arrangent ?</h4><p style="font-size:17px;color:var(--muted);margin-top:8px">Touchez les jours souhaités. Sans engagement : on vous confirme la disponibilité.</p><div class="cal">${calHTML(y, m, cell, dvM === 0 ? 0 : dvM === 5 ? 1 : -1)}</div><div class="note">Dates indicatives, sous réserve de disponibilité.</div>`; }
-  if (step === 2) b.innerHTML = `<h4 id="dvTitle">Où peut-on vous joindre ?</h4>
-    <label>Nom et prénom<input autocomplete="name" placeholder="Ex. Marie Dupont"></label><label>Entreprise<input autocomplete="organization"></label>
-    <label>Téléphone<input type="tel" autocomplete="tel" inputmode="tel"></label><label>E-mail<input type="email" autocomplete="email"></label>`;
-  if (step === 3) b.innerHTML = `<div class="dv__ok"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#D6EEEB"/><path d="M20 33 l8 8 l16 -18" fill="none" stroke="#14706E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h4 id="dvTitle">Merci, on vous rappelle sous 15 minutes.</h4><p>Ici, rien n’est envoyé : c’est une démo.<br>Vous pouvez refermer et continuer à lire.</p><button class="btn" id="dvDone">Fermer</button></div>`;
+  if (step === 2) b.innerHTML = `<h4 id="dvTitle">Où peut-on vous joindre ?</h4>${fields}`;
 };
-$('#openDv').addEventListener('click', () => { step = 0; dvRender(); dv.showModal(); });
+const openDv = (mode, from = 0) => { dvMode = mode; dv.className = mode; step = from; dvRender(); dv.showModal(); };
+$('#devis').addEventListener('click', e => { const b = e.target.closest('[data-dv]'); if (b) openDv(b.dataset.dv); });
 $('#dvClose').addEventListener('click', () => dv.close());
-$('#dvNext').addEventListener('click', () => { step = Math.min(3, step + 1); dvRender(); });
+$('#dvNext').addEventListener('click', () => { step = dvMode === 'drawer' ? 3 : Math.min(3, step + 1); dvRender(); });
 $('#dvBack').addEventListener('click', () => { step = Math.max(0, step - 1); dvRender(); });
 dv.addEventListener('click', e => {
   if (e.target === dv) return dv.close();
-  const f = e.target.closest('[data-df]'); if (f) { dvF.has(f.dataset.df) ? dvF.delete(f.dataset.df) : dvF.add(f.dataset.df); f.setAttribute('aria-pressed', dvF.has(f.dataset.df)); }
-  const d = e.target.closest('[data-dd]'); if (d) { dvD.has(d.dataset.dd) ? dvD.delete(d.dataset.dd) : dvD.add(d.dataset.dd); dvRender(); }
+  const f = e.target.closest('[data-df]'); if (f) { tog(dvF, f.dataset.df); f.setAttribute('aria-pressed', dvF.has(f.dataset.df)); }
+  const d = e.target.closest('[data-dd]'); if (d) { tog(dvD, d.dataset.dd); dvRender(); }
   const m = e.target.closest('[data-cm]'); if (m) { dvM = Math.max(0, Math.min(5, dvM + +m.dataset.cm)); dvRender(); }
   if (e.target.closest('#dvDone')) dv.close();
 });
@@ -969,7 +1070,7 @@ const paint = () => {
   $('#sumLow').innerHTML = low.length ? li(low) : '<p class="nil">Les notes de 1 à 4 s’afficheront ici.</p>';
 };
 ['fName','fPlus','fMoins'].forEach(k => { const el = document.getElementById(k); el.value = S.f[k] || ''; el.addEventListener('input', () => { S.f[k] = el.value; save(); }); });
-const SECS = [['da-','Styles'],['ton-','Ton'],['ic-','Icônes'],['lg-','Logos clients'],['ph-','Photos'],['an-','Animations'],['co-','Devis et sessions'],['ref-','Références']];
+const SECS = [['da-','Styles'],['ton-','Ton'],['ic-','Icônes'],['lg-','Logos clients'],['co-','Devis et sessions'],['ref-','Références']];
 const exportText = () => {
   const who = (S.f.fName || '').trim();
   let t = `Retours direction artistique Qualyz${who ? ' : ' + who : ''}\n${new Date().toLocaleDateString('fr-FR')}\n`;
@@ -986,8 +1087,14 @@ const copy = async () => { const t = exportText(); try { await navigator.clipboa
 $('#copyBtn').addEventListener('click', copy);
 $('#shareBtn').addEventListener('click', async () => { const t = exportText();
   if (navigator.share) { try { await navigator.share({title:'Retours direction artistique Qualyz', text:t}); } catch(e) {} } else { copy(); } });
-$('#mailBtn').addEventListener('click', e => { e.preventDefault(); const who = (S.f.fName || '').trim();
-  location.href = `mailto:${MAIL_TO}?subject=${encodeURIComponent('Retours DA Qualyz' + (who ? ' : ' + who : ''))}&body=${encodeURIComponent(exportText())}`; });
+/* Gmail: new tab on a computer, the Gmail app on iPhone (mail app as a fallback), the default mail app on Android */
+$('#mailBtn').addEventListener('click', e => { e.preventDefault();
+  const who = (S.f.fName || '').trim(), su = encodeURIComponent('Retours DA Qualyz' + (who ? ' : ' + who : '')), body = encodeURIComponent(exportText()), to = encodeURIComponent(MAIL_TO);
+  const ua = navigator.userAgent, ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), android = /Android/.test(ua);
+  const mailto = `mailto:${MAIL_TO}?subject=${su}&body=${body}`;
+  if (ios) { const t = setTimeout(() => { if (!document.hidden) location.href = mailto; }, 1800); addEventListener('pagehide', () => clearTimeout(t), {once:true}); location.href = `googlegmail:///co?to=${to}&subject=${su}&body=${body}`; }
+  else if (android) location.href = mailto;
+  else window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}&body=${body}`, '_blank', 'noopener'); });
 
 /* ---------- page chrome ---------- */
 paint();
