@@ -83,14 +83,24 @@ $('#palbar').innerHTML = `<span>Couleurs des maquettes</span><button class="pchi
 $('#palbar').addEventListener('click', e => { const b = e.target.closest('[data-pal]'); if (!b) return; palPick = +b.dataset.pal; applyPal(); });
 applyPal();
 
-$('#pals').innerHTML = PALS.map(p => `
-  <article class="pal">
-    <div class="pal__head"><div><h3>${p.n}</h3><p>${p.d}</p></div><div class="pal__sw" aria-hidden="true">${p.sw.map(c => `<span><i style="background:${c}"></i>${c}</span>`).join('')}</div></div>
-    <div class="scr"><div class="scr__bar"><i></i><i></i><i></i><span>qualyz.fr</span></div><div class="site l-show" data-theme="p${p.k}">${LAYOUT.show()}</div></div>
-    <button class="pal__use" data-use="${p.k}">Appliquer aux 8 pages d’accueil</button>
-    ${rateSlot('cp-' + p.k, 'Couleurs : ' + p.n)}
-  </article>`).join('');
-$('#pals').addEventListener('click', e => { const b = e.target.closest('[data-use]'); if (!b) return; palPick = +b.dataset.use; applyPal(); $('#styles').scrollIntoView(); });
+/* palettes: one sample page, switched instantly; each palette keeps its own rating */
+const sw3 = p => p.sw.slice(0, 3).map(c => `<b style="background:${c}"></b>`).join('');
+$('#pals').innerHTML = `<div class="palbar palbar--static" id="palPick" role="group" aria-label="Palette affichée">${PALS.map(p => `<button class="pchip" data-show="${p.k}" aria-pressed="false"><i aria-hidden="true">${sw3(p)}</i>${p.n}</button>`).join('')}</div>
+  <div class="pal__head"><div><h3 id="palName"></h3><p id="palDesc"></p></div><div class="pal__sw" id="palSw" aria-hidden="true"></div></div>
+  <div class="scr"><div class="scr__bar"><i></i><i></i><i></i><span>qualyz.fr</span></div><div class="site l-show" id="palSite" data-theme="p1">${LAYOUT.show()}</div></div>
+  <button class="pal__use" id="palUse">Appliquer aussi aux 8 pages d’accueil</button>
+  ${PALS.map(p => `<div class="pal__rate" data-for="${p.k}" hidden><p class="pal__rl">Votre note pour « ${p.n} »</p>${rateSlot('cp-' + p.k, 'Couleurs : ' + p.n)}</div>`).join('')}`;
+let palShow = 1;
+const showPal = k => { palShow = k; const p = PALS[k - 1];
+  $('#palSite').dataset.theme = 'p' + k; $('#palName').textContent = p.n; $('#palDesc').textContent = p.d;
+  $('#palSw').innerHTML = p.sw.map(c => `<span><i style="background:${c}"></i>${c}</span>`).join('');
+  document.querySelectorAll('[data-show]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.show === k));
+  document.querySelectorAll('.pal__rate').forEach(d => d.hidden = +d.dataset.for !== k); };
+const palScores = () => document.querySelectorAll('[data-show]').forEach(b => { const v = S.r['cp-' + b.dataset.show]; let em = b.querySelector('em');
+  if (v) { if (!em) { em = document.createElement('em'); b.appendChild(em); } em.textContent = v; } else if (em) em.remove(); });
+$('#palPick').addEventListener('click', e => { const b = e.target.closest('[data-show]'); if (b) showPal(+b.dataset.show); });
+$('#palUse').addEventListener('click', () => { palPick = palShow; applyPal(); $('#styles').scrollIntoView(); });
+showPal(1);
 
 /* ---------- tone ---------- */
 const TONS = [
@@ -332,7 +342,7 @@ const paintRates = () => RATES.forEach(r => { const v = S.r[r.dataset.id];
 /* ---------- summary and export ---------- */
 const ALL = RATES.map(r => r.dataset.id);
 const paint = () => {
-  paintRates();
+  paintRates(); palScores();
   const n = ALL.filter(id => S.r[id]).length;
   $('#progtxt').textContent = n + (n > 1 ? ' notées' : ' notée') + ' sur ' + ALL.length;
   $('#progbar').style.transform = `scaleX(${n / ALL.length})`;

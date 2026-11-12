@@ -177,12 +177,12 @@ p{margin:0}
 .l-band .s-hero{padding:3.2cqi 4.4cqi 5cqi}
 .l-band .s-in{padding-top:0}
 /* L3 full photo */
-.l-full .s-cover{position:relative; min-height:58cqi; padding:3.2cqi 4.4cqi 9cqi; display:flex; flex-direction:column; background:var(--s-hero); --s-head:var(--s-hero-ink); --s-ink:var(--s-hero-ink); --s-muted:var(--s-hero-muted); --s-logo:var(--s-hero-ink); --s-btn:var(--s-hero-ink); --s-btn-ink:var(--s-hero); --s-accent-ink:var(--s-accent-hero)}
+.l-full .s-cover{position:relative; isolation:isolate; min-height:58cqi; padding:3.2cqi 4.4cqi 9cqi; display:flex; flex-direction:column; background:var(--s-hero); --s-head:var(--s-hero-ink); --s-ink:var(--s-hero-ink); --s-muted:var(--s-hero-muted); --s-logo:var(--s-hero-ink); --s-btn:var(--s-hero-ink); --s-btn-ink:var(--s-hero); --s-accent-ink:var(--s-accent-hero)}
 .l-full .s-cover > img{position:absolute; z-index:0; inset:0; width:100%; height:100%; object-fit:cover; object-position:70% 30%}
 .l-full .s-cover::before{content:""; position:absolute; z-index:1; inset:0; background:linear-gradient(90deg, color-mix(in srgb, var(--s-hero) 94%, transparent) 0%, color-mix(in srgb, var(--s-hero) 72%, transparent) 46%, color-mix(in srgb, var(--s-hero) 10%, transparent) 100%)}
 .l-full .s-cover > *:not(img){position:relative; z-index:2}
 .l-full .s-cover .s-text{margin-top:auto}
-.l-full .s-tiles{margin:-6cqi 4.4cqi 0; position:relative; padding-bottom:4.4cqi}
+.l-full .s-tiles{margin:-6cqi 4.4cqi 0; position:relative; z-index:1; padding-bottom:4.4cqi}
 .l-full{--s-fh:var(--fb); --s-fw:800; --s-ls:-.035em}
 /* L4 soft */
 .l-soft .s-in{padding:2cqi 2.4cqi 3cqi}
@@ -288,8 +288,12 @@ p{margin:0}
 }
 
 /* palettes section: one full-width showcase per palette */
-.pals{display:grid; grid-template-columns:minmax(0, 1fr); gap:64px}
-.pal{display:grid; gap:16px; min-width:0}
+.pals{display:grid; grid-template-columns:minmax(0, 1fr); gap:16px; min-width:0}
+.pals > *{min-width:0}
+.palbar--static{position:static; margin:0 0 6px; box-shadow:none}
+.pal__rate[hidden]{display:none}
+.pal__rl{font-size:17px; font-weight:700; color:var(--deep)}
+.pchip em{font-style:normal; background:var(--white); color:var(--deep); border-radius:99px; padding:1px 8px; font-size:12.5px; font-weight:800}
 .pal__head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:14px 28px}
 .pal__head h3{font-size:clamp(28px, 3vw, 38px)}
 .pal__head p{font-size:17.5px; color:var(--muted); max-width:52ch; margin-top:6px}
@@ -298,7 +302,7 @@ p{margin:0}
 .pal__sw i{width:60px; height:44px; border-radius:10px; box-shadow:inset 0 0 0 1px var(--hair-3)}
 .pal__use{justify-self:start; min-height:44px; border:0; border-radius:99px; padding:8px 18px; background:var(--chip); color:var(--deep); font-weight:700; font-size:15.5px}
 .pal__use:hover{background:var(--chip-2)}
-.pal .rate{margin-top:0}
+.pals .rate{margin-top:6px}
 .s-strip{display:flex; flex-wrap:wrap; align-items:center; gap:2cqi 4cqi; padding:3.4cqi 4.4cqi}
 .s-strip b{font-family:var(--s-fh); font-weight:var(--s-fw); font-size:clamp(30px, 4.6cqi, 56px); line-height:1; color:var(--s-head)}
 .s-strip p{color:var(--s-muted); font-size:clamp(14px, 1.7cqi, 19px); max-width:36ch}
@@ -632,8 +636,8 @@ footer div{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px
 
   <section class="sec wrap" id="palettes">
     <div class="sec__head">
-      <h2>Huit palettes de couleurs, en action</h2>
-      <p>Chaque palette sur une page complète : le fond, les titres, les boutons, le bandeau de couleur et les cartes. Toutes gardent votre logo et votre turquoise. Un bouton l’applique aussi aux huit pages d’accueil.</p>
+      <h2>Huit palettes de couleurs</h2>
+      <p>Touchez une palette : la page d’exemple change tout de suite. Notez chacune. Toutes gardent votre logo et votre turquoise.</p>
     </div>
     <div class="pals" id="pals"></div>
   </section>
