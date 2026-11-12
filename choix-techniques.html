@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Qualyz : votre futur site, expliqué sans jargon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep:#0d4645; --deep2:#0a3837; --teal:#239F9D; --teal-ink:#17706e; --teal-hi:#5fd0cc;
+    --mint:#d9efed; --mint2:#eef7f6; --ground:#f4f8f7; --paper:#fff;
+    --ink:#142424; --soft:#3f5554; --line:#d5e4e2;
+    --amber:#e9a23b; --amber-bg:#fff6e8; --amber-line:#f1d29f; --amber-ink:#7a4a06;
+    --shadow:0 2px 10px rgba(13,70,69,.06), 0 1px 2px rgba(13,70,69,.05);
+  }
+  * { box-sizing:border-box }
+  html { scroll-behavior:smooth; scroll-padding-top:64px }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto } *, *::before { transition:none !important; animation:none !important } }
+  body { margin:0; background:var(--ground); color:var(--ink); font:18px/1.65 "Public Sans",system-ui,sans-serif; -webkit-font-smoothing:antialiased }
+  ::selection { background:var(--teal); color:#fff }
+  :focus-visible { outline:3px solid var(--amber); outline-offset:2px; border-radius:6px }
+  ::-webkit-scrollbar { width:10px } ::-webkit-scrollbar-thumb { background:#9fcfcc; border-radius:10px } ::-webkit-scrollbar-track { background:var(--ground) }
+  a { color:var(--teal-ink); text-underline-offset:3px }
+  b, strong { font-weight:700 }
+
+  /* Barre de lecture : où on est, combien il reste */
+  .bar { position:sticky; top:0; z-index:20; background:var(--deep); color:#e8f6f5; font-size:14px; font-weight:600 }
+  .bar .in { max-width:1080px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; gap:16px }
+  .bar .here { min-width:0; flex:0 1 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff }
+  .bar .track { flex:1; height:6px; background:rgba(255,255,255,.15); border-radius:6px; overflow:hidden; min-width:60px }
+  .bar .fill { height:100%; width:0; background:var(--teal-hi); border-radius:6px; transition:width .2s cubic-bezier(.16,1,.3,1) }
+  .bar .left { white-space:nowrap; font-variant-numeric:tabular-nums; color:#cfe9e7 }
+
+  header { background:var(--deep); color:#fff; padding:56px 24px 72px }
+  header .in { max-width:860px; margin:0 auto }
+  h1 { font:400 clamp(38px,6.4vw,64px)/1.04 "Young Serif",Georgia,serif; margin:0 0 22px; letter-spacing:-0.02em; text-wrap:balance }
+  h1 em { font-style:normal; color:var(--teal-hi) }
+  .lede { color:#cfe9e7; font-size:21px; line-height:1.5; margin:0 0 14px; max-width:60ch }
+  .lede b { color:#fff }
+  .howto { margin-top:26px; display:flex; gap:14px; align-items:flex-start; background:rgba(255,255,255,.07); border-radius:14px; padding:16px 18px; max-width:640px; color:#e8f6f5; font-size:17px }
+  .howto svg { flex:none; margin-top:3px }
+  header .t { color:#fff; text-decoration-color:var(--teal-hi) }
+
+  main { max-width:860px; margin:0 auto; padding:0 24px 120px }
+  section { padding-top:72px }
+  h2 { font:400 clamp(28px,4vw,36px)/1.12 "Young Serif",Georgia,serif; color:var(--deep); margin:0 0 10px; letter-spacing:-0.01em; text-wrap:balance }
+  h3 { font-size:21px; line-height:1.3; margin:0 0 8px; color:var(--deep) }
+  .sub { color:var(--soft); margin:0 0 26px; max-width:64ch; font-size:19px }
+  p { margin:0 0 12px; max-width:68ch }
+  .soft { color:var(--soft) }
+
+  /* Terme expliqué au survol */
+  .t { text-decoration:underline dotted var(--teal); text-decoration-thickness:2px; text-underline-offset:4px; cursor:help; border-radius:3px }
+  .t:hover, .t[aria-describedby] { background:var(--mint) }
+  header .t:hover, header .t[aria-describedby] { background:rgba(255,255,255,.12) }
+  .tip { position:fixed; z-index:50; max-width:340px; background:var(--deep2); color:#eaf7f6; font-size:15.5px; line-height:1.5; padding:13px 15px; border-radius:12px; box-shadow:0 10px 30px rgba(6,40,39,.28), 0 2px 6px rgba(6,40,39,.18); pointer-events:none; opacity:0; transform:translateY(4px); transition:opacity .15s ease-out, transform .2s cubic-bezier(.16,1,.3,1) }
+  .tip.on { opacity:1; transform:none }
+  .tip b { color:#fff }
+
+  /* L'essentiel */
+  .gist { list-style:none; margin:0; padding:0; background:var(--paper); border-radius:18px; box-shadow:var(--shadow); overflow:hidden }
+  .gist li { display:grid; grid-template-columns:44px 1fr; gap:14px; padding:18px 24px; border-top:1px solid var(--line) }
+  .gist li:first-child { border-top:0 }
+  .gist svg { margin-top:2px }
+  .gist strong { display:block; color:var(--deep); font-size:19px; line-height:1.35 }
+  .gist span { color:var(--soft) }
+
+  /* Le site en une image */
+  .map { background:var(--paper); border-radius:20px; box-shadow:var(--shadow); padding:26px 24px 22px }
+  .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; margin:4px 0 0 }
+  .stop { position:relative; padding:0 10px; text-align:center }
+  .stop .dot { width:56px; height:56px; margin:0 auto 10px; border-radius:16px; background:var(--mint2); border:1.5px solid #bfe2df; display:grid; place-items:center; position:relative; z-index:1 }
+  .stop.core .dot { background:var(--deep); border-color:var(--deep) }
+  .stop b { display:block; color:var(--deep); font-size:16.5px; line-height:1.3 }
+  .stop small { display:block; color:var(--soft); font-size:15px; line-height:1.4; margin-top:3px }
+  .stop .what { display:inline-block; margin-top:8px; font-size:13.5px; font-weight:700; color:var(--teal-ink); background:var(--mint); border-radius:999px; padding:2px 10px }
+  .flow::before { content:""; position:absolute; top:28px; left:12.5%; right:12.5%; border-top:2px dashed #9fcfcc }
+  .backstage { margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:12px }
+  .back { border:1.5px dashed #bfe2df; border-radius:14px; padding:12px 14px; font-size:16px; line-height:1.45 }
+  .back b { color:var(--deep) }
+  .mails { margin-top:12px; display:flex; gap:12px; align-items:flex-start; background:var(--amber-bg); border:1px solid var(--amber-line); border-radius:14px; padding:12px 14px; font-size:16px; line-height:1.45 }
+  .mails b { color:var(--amber-ink) }
+  @media (max-width:720px) {
+    .flow { grid-template-columns:1fr 1fr; row-gap:22px } .flow::before { display:none }
+    .backstage { grid-template-columns:1fr }
+  }
+
+  /* Fiche de choix : question à gauche, réponse à droite */
+  .pick { display:grid; grid-template-columns:230px 1fr; gap:0; background:var(--paper); border-radius:18px; box-shadow:var(--shadow); margin:0 0 16px; overflow:hidden }
+  .pick .q { background:var(--mint2); padding:22px 20px; border-right:1px solid var(--line) }
+  .pick .q h3 { font:400 22px/1.2 "Young Serif",Georgia,serif; margin:0 0 14px }
+  .pick .choice { display:inline-block; background:var(--deep); color:#fff; font-weight:700; font-size:16px; border-radius:10px; padding:6px 12px; line-height:1.3 }
+  .pick .choice + .choice { margin-top:6px }
+  .pick .q .cost { display:block; margin-top:12px; font-size:14.5px; color:var(--soft) }
+  .pick .a { padding:20px 24px 18px }
+  .pick .a > p:first-child { font-size:19px; color:var(--ink) }
+  .row { display:grid; grid-template-columns:150px 1fr; gap:12px; padding:9px 0; border-top:1px solid var(--line); font-size:16.5px; line-height:1.5 }
+  .row > span:first-child { font-weight:700; color:var(--soft); font-size:15px; padding-top:1px }
+  .row.elu > span:first-child { color:var(--amber-ink) }
+  details { margin-top:6px; border-top:1px solid var(--line); padding-top:8px }
+  summary { cursor:pointer; font-weight:700; color:var(--teal-ink); font-size:16px; list-style:none; display:inline-flex; align-items:center; gap:8px; padding:4px 0; min-height:36px }
+  summary::-webkit-details-marker { display:none }
+  summary::before { content:""; width:8px; height:8px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(-45deg); transition:transform .2s ease-out; margin-right:2px }
+  details[open] summary::before { transform:rotate(45deg) }
+  .alts { width:100%; border-collapse:collapse; font-size:15.5px; margin:6px 0 4px }
+  .alts td { padding:8px 10px 8px 0; border-top:1px solid var(--line); vertical-align:top }
+  .alts td:first-child { font-weight:700; color:var(--deep); width:170px }
+  @media (max-width:760px) {
+    .pick { grid-template-columns:1fr } .pick .q { border-right:0; border-bottom:1px solid var(--line) }
+    .row { grid-template-columns:1fr; gap:0 }
+  }
+
+  /* Phases */
+  .phases { display:grid; grid-template-columns:1.15fr 1fr 1fr; gap:12px }
+  .phase { background:var(--paper); border-radius:18px; box-shadow:var(--shadow); padding:20px 20px 18px }
+  .phase.now { background:var(--deep); color:#e8f6f5 }
+  .phase.now h3, .phase.now b { color:#fff }
+  .phase.now .when { background:var(--teal-hi); color:var(--deep2) }
+  .phase.now .t { color:#fff; text-decoration-color:var(--teal-hi) }
+  .phase.now .t:hover, .phase.now .t[aria-describedby] { background:rgba(255,255,255,.12) }
+  .when { display:inline-block; font-size:13.5px; font-weight:700; background:var(--mint); color:var(--teal-ink); border-radius:999px; padding:2px 10px; margin-bottom:10px }
+  .phase h3 { font:400 23px/1.2 "Young Serif",Georgia,serif; margin:0 0 8px }
+  .phase ul { margin:8px 0 0; padding-left:18px; font-size:16.5px; line-height:1.5 }
+  .phase li { margin:0 0 6px }
+  .phase .gate { margin-top:12px; font-size:15px; border-top:1px solid var(--line); padding-top:10px; color:var(--soft) }
+  .phase.now .gate { border-color:rgba(255,255,255,.18); color:#cfe9e7 }
+  @media (max-width:820px) { .phases { grid-template-columns:1fr } }
+
+  /* Encadrés */
+  .note { background:var(--paper); border-radius:16px; box-shadow:var(--shadow); padding:20px 24px; margin:0 0 14px }
+  .note > :last-child { margin-bottom:0 }
+  .warn { background:var(--amber-bg); border:1px solid var(--amber-line); border-radius:14px; padding:16px 20px; margin:14px 0 }
+  .warn > :last-child { margin-bottom:0 }
+  .warn b { color:var(--amber-ink) }
+
+  /* Deux colonnes : pour tout le monde / seulement avec accord */
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 0 14px }
+  .split > div { background:var(--paper); border-radius:16px; box-shadow:var(--shadow); padding:18px 20px }
+  .split h3 { font-size:18px; margin:0 0 6px }
+  .split ul { margin:6px 0 0; padding-left:18px; font-size:16.5px }
+  .split li { margin:0 0 4px }
+  .split .off { background:var(--mint2); box-shadow:none; border:1px solid var(--line) }
+  @media (max-width:720px) { .split { grid-template-columns:1fr } }
+
+  /* Calculateur de test A/B */
+  .calc { background:var(--paper); border-radius:20px; box-shadow:var(--shadow); padding:22px 24px; margin:0 0 14px }
+  .calc h3 { margin:0 0 4px }
+  .ctrls { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:16px; margin:14px 0 18px }
+  .ctrls label { display:block; font-size:15px; font-weight:700; color:var(--soft); margin-bottom:6px }
+  .ctrls output { color:var(--deep); font-variant-numeric:tabular-nums }
+  input[type=range] { width:100%; accent-color:var(--teal); height:28px }
+  select { width:100%; font:inherit; font-size:16px; padding:8px 10px; border:1.5px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); min-height:44px }
+  .result { background:var(--deep); color:#e8f6f5; border-radius:14px; padding:16px 18px; font-size:17.5px; line-height:1.5 }
+  .result b { color:#fff; font-variant-numeric:tabular-nums }
+  .result .big { font:400 30px/1.15 "Young Serif",Georgia,serif; color:var(--teal-hi); display:block; margin-bottom:4px }
+  @media (max-width:720px) { .ctrls { grid-template-columns:1fr } }
+
+  /* Tableaux simples */
+  .tbl { background:var(--paper); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; margin:0 0 14px }
+  .tbl table { width:100%; border-collapse:collapse; font-size:16.5px }
+  .tbl th, .tbl td { text-align:left; padding:11px 16px; vertical-align:top; border-top:1px solid var(--line) }
+  .tbl tr:first-child th { border-top:0 }
+  .tbl th { font-size:14px; color:var(--soft); background:#fafcfc }
+  .tbl td:first-child { font-weight:700; color:var(--deep) }
+  .tbl td.n { font-variant-numeric:tabular-nums; white-space:nowrap }
+  .tbl tr.total td { background:var(--mint2); font-weight:700; color:var(--deep) }
+
+  /* Risques */
+  .risk { display:grid; grid-template-columns:1fr 1fr; gap:0; background:var(--paper); border-radius:16px; box-shadow:var(--shadow); margin:0 0 12px; overflow:hidden }
+  .risk > div { padding:16px 20px }
+  .risk > div:first-child { background:var(--amber-bg); border-right:1px solid var(--amber-line) }
+  .risk h3 { font-size:18px; margin:0 0 4px; color:var(--amber-ink) }
+  .risk .fix h3 { color:var(--deep) }
+  .risk p { font-size:16.5px; margin:0 }
+  @media (max-width:720px) { .risk { grid-template-columns:1fr } .risk > div:first-child { border-right:0; border-bottom:1px solid var(--amber-line) } }
+
+  /* Planning */
+  .steps { list-style:none; padding:0; margin:0; counter-reset:s; background:var(--paper); border-radius:16px; box-shadow:var(--shadow); padding:6px 24px }
+  .steps li { counter-increment:s; position:relative; padding:14px 0 14px 50px; border-top:1px solid var(--line); font-size:17px }
+  .steps li:first-child { border-top:0 }
+  .steps li::before { content:counter(s); position:absolute; left:0; top:14px; width:34px; height:34px; border-radius:50%; background:var(--deep); color:#fff; font:400 17px/34px "Young Serif",serif; text-align:center }
+  .steps b { color:var(--deep) }
+  .steps .d { display:inline-block; font-size:13.5px; font-weight:700; color:var(--teal-ink); background:var(--mint); border-radius:999px; padding:1px 9px; margin-left:6px; vertical-align:2px }
+
+  /* À vous de trancher */
+  .decide { list-style:none; margin:0; padding:0; display:grid; gap:10px }
+  .decide li { background:var(--paper); border-radius:14px; box-shadow:var(--shadow); padding:16px 20px; display:grid; grid-template-columns:28px 1fr; gap:12px }
+  .decide input { width:22px; height:22px; margin-top:3px; accent-color:var(--teal) }
+  .decide b { color:var(--deep); display:block; font-size:18px; line-height:1.35 }
+  .decide span { color:var(--soft); font-size:16.5px }
+  .decide li:has(input:checked) { opacity:.6 }
+
+  .end { margin-top:72px; background:var(--deep); color:#cfe9e7; border-radius:20px; padding:28px }
+  .end h2 { color:#fff }
+  .end p { color:#cfe9e7 }
+  .end b { color:#fff }
+  .src { font-size:14.5px; color:var(--soft); margin-top:28px; line-height:1.55 }
+  .src p { max-width:none }
+  @media print { .bar, .tip { display:none } details { display:block } details > * { display:block } body { background:#fff } }
+</style>
+</head>
+<body>
+
+<div class="bar" aria-hidden="true"><div class="in">
+  <span class="here" id="here">Introduction</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <span class="left" id="left">12 min</span>
+</div></div>
+
+<header><div class="in">
+  <h1>Votre futur site, <em>expliqué sans jargon</em></h1>
+  <p class="lede">En 10 à 12 minutes : <b>ce qu’on construit</b>, <b>avec quels outils</b>, <b>pourquoi ceux-là</b>, et <b>ce que ça coûte</b>. Chaque choix a été vérifié, et beaucoup sont tirés de ce que votre site actuel utilise déjà.</p>
+  <div class="howto">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5fd0cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    <span>Les mots <span class="t" data-tip="Comme ça. Passez la souris dessus (ou touchez-les sur téléphone) : une explication de 15 secondes apparaît, avec un exemple tiré de Qualyz. Si un mot vous bloque, c’est qu’il manque une bulle : dites-le-moi.">soulignés en pointillés</span> cachent une explication courte. Survolez-les dès qu’un terme vous arrête.</span>
+  </div>
+</div></header>
+
+<main>
+
+<!-- ============ L'ESSENTIEL ============ -->
+<section id="essentiel" data-name="L’essentiel">
+  <h2>L’essentiel en 30 secondes</h2>
+  <p class="sub">Si vous ne lisez que ça, vous avez compris le projet.</p>
+  <ul class="gist">
+    <li>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#239F9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></svg>
+      <div><strong>On quitte Squarespace pour un site sur mesure qui vous appartient.</strong><span>Le code, les comptes et les données sont au nom de Qualyz. Si demain vous changez de prestataire, vous partez avec tout.</span></div>
+    </li>
+    <li>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#239F9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+      <div><strong>Vous modifiez vos textes vous-mêmes, sans développeur.</strong><span>Une interface d’administration en français, avec brouillons, aperçu et historique.</span></div>
+    </li>
+    <li>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#239F9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"/><path d="M6 15v-4M10 15V8M14 15v-6M18 15V5"/></svg>
+      <div><strong>On construit d’abord le site, en 2 semaines. L’espace client vient juste après.</strong><span>Sur les mêmes fondations, sans rien refaire. On n’installe rien dont vous n’avez pas encore besoin.</span></div>
+    </li>
+    <li>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#239F9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div><strong>Vos mails ne bougent pas, et votre position sur Google est surveillée de près.</strong><span>Ce sont les deux vrais risques d’une refonte. Une petite baisse Google de quelques semaines reste possible : on la limite, et on la mesure.</span></div>
+    </li>
+    <li>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#239F9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9a3 3 0 0 0-2.8-1.5c-1.7 0-3 1-3 2.3 0 3 6 1.6 6 4.5 0 1.3-1.3 2.2-3 2.2A3.2 3.2 0 0 1 9 15M12 6v1.5M12 16.5V18"/></svg>
+      <div><strong>Environ 85 à 110 € par mois d’outils au départ.</strong><span>Hébergement, base de données et outil de mots-clés compris. Le détail est à la fin.</span></div>
+    </li>
+  </ul>
+</section>
+
+<!-- ============ LE SITE EN UNE IMAGE ============ -->
+<section id="image" data-name="Le site en une image">
+  <h2>Votre site, comme un centre de formation</h2>
+  <p class="sub">Un site web, c’est quelques pièces qui ont chacune un rôle. Voici le trajet d’un élu qui tape « qualyz.fr », avec l’équivalent dans votre métier.</p>
+  <div class="map">
+    <div class="flow">
+      <div class="stop">
+        <div class="dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17706e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <b><span class="t" data-tip="C’est votre adresse sur Internet : qualyz.fr. Comme l’adresse de vos locaux, vous la louez à l’année. La vôtre a été réservée le 5 avril 2025 et doit être renouvelée avant le 5 avril 2027. On la garde, on ne change que ce qu’il y a derrière.">Le nom de domaine</span></b>
+        <small>qualyz.fr</small>
+        <span class="what">l’adresse postale</span>
+      </div>
+      <div class="stop">
+        <div class="dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17706e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 7h11l3 3-3 3H5zM19 14H8l-3 3 3 3h11"/></svg></div>
+        <b><span class="t" data-tip="Le panneau d’orientation à l’entrée. Il dit : « les visiteurs du site, allez par là ; le courrier, allez chez Google ». Changer de site, c’est juste repeindre la flèche « site ». La flèche « courrier » ne bouge pas.">Le DNS</span></b>
+        <small>l’aiguillage</small>
+        <span class="what">le panneau à l’accueil</span>
+      </div>
+      <div class="stop core">
+        <div class="dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div>
+        <b><span class="t" data-tip="Le bâtiment où vit votre site, loué à une entreprise qui l’ouvre 24 h sur 24 et le surveille. Quand un élu de Lille ouvre votre page à 23 h, c’est ce bâtiment qui la lui envoie. Aujourd’hui c’est Squarespace, demain ce sera Vercel, avec des serveurs à Paris.">L’hébergement</span></b>
+        <small>Vercel, à Paris</small>
+        <span class="what">le bâtiment loué</span>
+      </div>
+      <div class="stop core">
+        <div class="dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+        <b>La page affichée</b>
+        <small>construite avec <span class="t" data-tip="Le framework, c’est la méthode de construction du site, comme un plan type pour aménager une salle de formation : où vont les murs, les prises, les tables. Next.js est l’un des plus utilisés pour ce genre de site. Si votre développeur change, le suivant le connaîtra très probablement : vous ne dépendez pas d’une seule personne.">Next.js</span></small>
+        <span class="what">la salle aménagée</span>
+      </div>
+    </div>
+    <div class="backstage">
+      <div class="back"><b>En coulisses, là où vous travaillez :</b> l’<span class="t" data-tip="L’endroit où vous écrivez et modifiez vos pages, comme un tableau d’affichage dont vous avez la clé. Vous changez le prix de la formation SSCT, vous cliquez « Publier », et le site est à jour en quelques secondes. Pas besoin d’appeler un développeur.">administration Payload</span>. C’est votre tableau d’affichage : vous changez une affiche, la salle est à jour.</div>
+      <div class="back"><b>Et le classeur derrière :</b> la <span class="t" data-tip="Un classeur très bien rangé où le site range tout ce qui change : vos pages, vos sessions, plus tard les comptes de vos clients. Comme vos dossiers de formation, mais que l’ordinateur sait lire et trier en une fraction de seconde. Sauvegardé chaque jour automatiquement.">base de données</span>, chez Supabase, en France. C’est là que sont rangés vos textes, vos sessions et vos images.</div>
+    </div>
+    <div class="mails">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7a4a06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      <span><b>Vos mails ne passent pas par le site.</b> Ils sont chez <span class="t" data-tip="Votre messagerie @qualyz.fr est hébergée par Google, comme Gmail mais à votre nom de domaine. Les réglages publics de qualyz.fr le montrent. Ça veut dire qu’on peut changer tout le site sans toucher à vos boîtes mail, à condition de ne pas effacer la bonne ligne.">Google Workspace</span>, et ils y restent. On ne touche qu’à la flèche « site » du panneau.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LES CHOIX ============ -->
+<section id="choix" data-name="Les choix">
+  <h2>Les choix, un par un</h2>
+  <p class="sub">Pour chaque question : ce qu’on prend, pourquoi, ce que ça change pour vous, et ce que verrait un élu si ça tombait en panne. Les options écartées sont repliées, ouvrez-les si vous êtes curieux.</p>
+
+  <!-- 1. Construire -->
+  <article class="pick">
+    <div class="q">
+      <h3>Avec quoi construire le site ?</h3>
+      <span class="choice">Next.js</span>
+      <span class="cost">Gratuit (<span class="t" data-tip="Le code de l’outil est public et gratuit, utilisable par tous. Comme un modèle de convention de formation que tout le monde peut reprendre. Personne ne peut vous l’enlever ni augmenter le prix d’une licence du jour au lendemain.">open source</span>)</span>
+    </div>
+    <div class="a">
+      <p>Le site est écrit « à la main » avec l’outil le plus répandu du métier, au lieu d’être assemblé dans Squarespace.</p>
+      <div class="row"><span>Pourquoi lui</span><span>Il fait aussi bien un site de contenu qu’une application avec comptes clients. L’espace client se construira donc avec le même outil, sans rien recommencer. Et il est si répandu qu’un autre développeur pourra reprendre le site.</span></div>
+      <div class="row"><span>Pour vous</span><span>Un site plus rapide, mieux lu par Google, qui fait ce que Squarespace ne sait pas faire : vos dates de formation affichées automatiquement, des pages par ville, des tests.</span></div>
+      <div class="row elu"><span>Si ça casse</span><span>Rien de visible : chaque modification est testée, puis vérifiée sur une <span class="t" data-tip="Avant chaque mise en ligne, la nouvelle version est publiée à une adresse privée. Vous l’ouvrez sur votre téléphone, comme une répétition avant la vraie session. Si quelque chose cloche, on corrige avant que vos visiteurs ne la voient.">adresse d’aperçu</span> avant la mise en ligne. En cas de souci, retour à la version d’avant en un clic.</span></div>
+      <details><summary>Les autres options, et pourquoi non</summary>
+        <table class="alts">
+          <tr><td>Rester en « sans code » (Squarespace, Webflow, Framer)</td><td>Plus simple au début, mais on bute vite sur les limites : sessions automatiques, pages en série, tests, espace client. Et vous restez locataire d’une plateforme.</td></tr>
+          <tr><td>Astro</td><td>Excellent pour un site de pur contenu, un peu plus léger. Mais il faudrait un second outil le jour où arrive l’espace client. Écart faible aujourd’hui, coût réel demain.</td></tr>
+          <tr><td>WordPress</td><td>Très connu, mais il demande des extensions à mettre à jour sans cesse et c’est la cible n°1 des pirates.</td></tr>
+        </table>
+      </details>
+    </div>
+  </article>
+
+  <!-- 2. Modifier ses contenus -->
+  <article class="pick">
+    <div class="q">
+      <h3>Comment modifier vos textes vous-mêmes ?</h3>
+      <span class="choice">Payload</span>
+      <span class="cost">Gratuit (open source)</span>
+    </div>
+    <div class="a">
+      <p>Une interface d’administration, en français, installée dans le site lui-même. C’est ce qu’on appelle un <span class="t" data-tip="« Content Management System », ou gestionnaire de contenu. C’est l’écran où vous écrivez un article, changez une photo ou ajoutez une session de formation, sans voir une ligne de code. Squarespace en a un intégré ; Payload sera le vôtre.">CMS</span>.</p>
+      <div class="row"><span>Pourquoi lui</span><span>Vos contenus restent dans votre propre base, pas chez un éditeur tiers. Brouillons, aperçu, publication programmée, historique, et des droits différents selon les personnes (un formateur peut rédiger un article, mais seul Amaury peut le publier). L’équipe a rejoint Figma en 2025 ; le code étant ouvert, il resterait utilisable même si Figma changeait de cap.</span></div>
+      <div class="row"><span>Pour vous</span><span>Vous publiez pages, articles et sessions sans attendre personne. Une heure de formation suffit.</span></div>
+      <div class="row elu"><span>Si ça casse</span><span>Le site public continue de s’afficher : les pages sont préparées à l’avance. Seule l’édition serait indisponible le temps de la réparation.</span></div>
+      <details><summary>Les autres options, et pourquoi non</summary>
+        <table class="alts">
+          <tr><td>Sanity</td><td>Très fiable et soigné, mais vos contenus vivent chez Sanity, à l’étranger, et l’interface est en anglais. Un très bon second choix.</td></tr>
+          <tr><td>Strapi</td><td>Complet, mais c’est un deuxième serveur à faire tourner et à surveiller.</td></tr>
+          <tr><td>WordPress comme back-office</td><td>Deux systèmes à maintenir au lieu d’un, sans gain pour vous.</td></tr>
+        </table>
+      </details>
+    </div>
+  </article>
+
+  <!-- 3. Héberger -->
+  <article class="pick">
+    <div class="q">
+      <h3>Où le site habite-t-il ?</h3>
+      <span class="choice">Vercel</span>
+      <span class="cost">20 $ par mois</span>
+    </div>
+    <div class="a">
+      <p>L’entreprise qui a créé Next.js. Le site y tourne sans bricolage, sur des serveurs à Paris. Vercel est une société américaine : pour un site vitrine, c’est sans enjeu.</p>
+      <div class="row"><span>Pourquoi lui</span><span>Mise en ligne automatique, aperçu de chaque version, retour arrière en un clic, protection contre les attaques. Pendant un <a href="#mesure">test</a>, chaque visiteur voit directement sa version, sans voir l’autre s’afficher une seconde avant.</span></div>
+      <div class="row"><span>Pour vous</span><span>Aucun serveur à gérer. Le forfait inclut 20 $ d’usage par mois. Un site comme le vôtre reste en général dedans ; au-delà, on paie à l’usage, et on peut fixer un plafond.</span></div>
+      <div class="row elu"><span>Si ça casse</span><span>Une panne de Vercel rendrait le site indisponible. C’est rare, et une <a href="#filet">sonde</a> vous prévient.</span></div>
+      <details><summary>Les autres options, et pourquoi non</summary>
+        <table class="alts">
+          <tr><td>Cloudflare, Netlify</td><td>Très bons, moins chers à gros volume. Next.js y fonctionne, mais un peu moins naturellement.</td></tr>
+          <tr><td>OVH, Scaleway (français)</td><td>Tout en France, mais il faut gérer soi-même le serveur : plus de maintenance, donc plus de dépendance au développeur.</td></tr>
+        </table>
+        <p class="soft" style="font-size:15.5px;margin-top:8px">Point honnête : Vercel est une société américaine, même si ses serveurs sont à Paris. Pour un site vitrine, c’est sans enjeu. Et comme le code est standard, déménager reste possible.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- 4. Données -->
+  <article class="pick">
+    <div class="q">
+      <h3>Où ranger les données ?</h3>
+      <span class="choice">Supabase, à Paris</span>
+      <span class="cost">25 $ par mois</span>
+    </div>
+    <div class="a">
+      <p>Le classeur du site : vos pages, vos sessions, vos images et PDF. Il repose sur <span class="t" data-tip="Un format de classeur très solide et très répandu, gratuit et ouvert, utilisé depuis plus de vingt ans. Le choisir, c’est comme ranger vos archives dans des classeurs standards plutôt que dans un meuble sur mesure : n’importe qui pourra les ouvrir et les déménager.">PostgreSQL</span>.</p>
+      <div class="row"><span>Pourquoi lui</span><span><span class="t" data-tip="Une copie complète de tout le classeur, faite chaque nuit sans que vous y pensiez. Si une page est effacée par erreur un mardi, on la récupère telle qu’elle était le lundi soir. Supabase garde les 7 derniers jours ; on ajoute une copie chaque semaine ailleurs, à votre nom.">Sauvegarde</span> chaque jour, gardée 7 jours, serveurs à Paris. Et le jour où vous ouvrez l’espace client, il sait déjà gérer les comptes : pas besoin de changer d’outil.</span></div>
+      <div class="row"><span>Pour vous</span><span>Rien à faire. On ajoute une copie chaque semaine chez un second fournisseur, à votre nom (quelques euros par mois) : jamais tous les œufs dans le même panier.</span></div>
+      <div class="row elu"><span>Si ça casse</span><span>Le site reste visible. Les modifications attendent le retour du service.</span></div>
+      <details><summary>Les autres options, et pourquoi non</summary>
+        <table class="alts">
+          <tr><td>Neon</td><td>Le même PostgreSQL, très bien aussi, mais sans le stockage de fichiers dont l’espace client aura besoin.</td></tr>
+          <tr><td>Scaleway, OVH</td><td>Français, mais plus de maintenance, donc plus de dépendance au développeur.</td></tr>
+        </table>
+      </details>
+    </div>
+  </article>
+
+  <!-- 5. Domaine et mails -->
+  <article class="pick">
+    <div class="q">
+      <h3>Que devient qualyz.fr et vos mails ?</h3>
+      <span class="choice">On garde tout</span>
+      <span class="cost">Aucun coût nouveau</span>
+    </div>
+    <div class="a">
+      <p>Vous gardez votre adresse et vos boîtes mail. Le jour J, on change seulement la flèche qui envoie les visiteurs vers le nouveau site.</p>
+      <div class="row"><span>Ce que j’ai vérifié</span><span>Vos mails sont chez Google Workspace, avec les réglages de sécurité déjà en place (<span class="t" data-tip="Trois réglages qui prouvent que vos mails viennent vraiment de vous, comme le tampon et la signature sur une convention. Sans eux, vos devis risquent de finir en spam chez l’élu. Les vôtres existent déjà ; on les note avant de toucher à quoi que ce soit.">SPF, DKIM et DMARC</span>). Le site actuel utilise aussi la prise de rendez-vous de Google Agenda sur la page Contact, et une balise Google Ads.</span></div>
+      <div class="row"><span>Pour vous</span><span>Une petite tâche : retrouver qui a accès au compte où le domaine est géré (sans doute votre compte Squarespace), et vérifier que le renouvellement automatique est activé avant avril 2027.</span></div>
+      <div class="row elu"><span>Si ça casse</span><span>Le vrai danger : effacer par erreur la ligne <span class="t" data-tip="La ligne du panneau d’orientation qui dit où livrer le courrier. Si on l’efface en changeant de site, plus aucun mail n’arrive à @qualyz.fr, et personne ne vous prévient : les devis des élus se perdent en silence. C’est l’erreur la plus classique d’une refonte.">MX</span> des mails. C’est pourquoi on copie tous les réglages avant de commencer, et le jour J, on fait le changement ensemble, puis on vérifie qu’un mail envoyé de l’extérieur arrive bien.</span></div>
+      <details><summary>Et le changement de gestionnaire de domaine ?</summary>
+        <p style="font-size:16px">On pourrait aussi transférer le domaine ailleurs. Inutile pendant la refonte : on ne change qu’une chose à la fois. On en reparlera une fois le site stable.</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- 6. Sessions, rendez-vous, devis -->
+  <article class="pick">
+    <div class="q">
+      <h3>Sessions, rendez-vous et demandes de devis</h3>
+      <span class="choice">Vos outils actuels, mieux branchés</span>
+    </div>
+    <div class="a">
+      <p>On ne remplace pas ce qui marche. On le relie au nouveau site.</p>
+      <div class="row"><span>Rendez-vous</span><span>On garde la prise de rendez-vous Google Agenda que vous utilisez déjà, incluse dans Google Workspace.</span></div>
+      <div class="row"><span>Sessions</span><span>Si vous utilisez un logiciel de gestion de formation (Digiforma, Dendreo…), le site peut y lire vos sessions à venir grâce à son <span class="t" data-tip="Une porte d’accès prévue pour que deux logiciels se parlent sans vous. Exemple : vous créez la session « SSCT, Lyon, 14 janvier » dans votre logiciel de formation, et elle apparaît toute seule sur le site, avec les places restantes. Encore faut-il que votre logiciel ouvre cette porte : c’est à vérifier.">API</span>, s’il en propose une. Sinon, vous les saisissez dans Payload.</span></div>
+      <div class="row"><span>Devis</span><span>Chaque demande arrive dans votre boîte mail et reste rangée dans la base : aucune ne se perd. On ajoute une question facultative « Comment nous avez-vous connus ? », la mesure la plus fiable de ce qui vous amène des clients.</span></div>
+      <div class="row elu"><span>Si ça casse</span><span>Un formulaire qui n’envoie plus rien, c’est le pire scénario, car il est silencieux. On l’envoie par un service spécialisé dans les <span class="t" data-tip="Les mails envoyés automatiquement par le site : « Votre demande de devis est bien reçue », par exemple. Envoyés n’importe comment, ils tombent en spam chez l’élu ou chez vous. Un service spécialisé (Brevo, français, par exemple) s’assure qu’ils arrivent bien.">mails automatiques</span>, et un test vérifie chaque jour qu’il fonctionne.</span></div>
+    </div>
+  </article>
+
+  <!-- 7. Filet de sécurité -->
+  <article class="pick" id="filet">
+    <div class="q">
+      <h3>Comment savoir qu’un problème existe avant un client ?</h3>
+      <span class="choice">Un filet de sécurité</span>
+      <span class="cost">Offres gratuites au départ</span>
+    </div>
+    <div class="a">
+      <p>Des gardiens automatiques, qui travaillent pendant que vous formez.</p>
+      <div class="row"><span>La sonde</span><span>Elle ouvre votre site toutes les minutes. S’il ne répond pas, vous recevez un message.</span></div>
+      <div class="row"><span>Le carnet d’erreurs</span><span><span class="t" data-tip="Un outil (Sentry) qui note chaque bug que rencontre un visiteur, avec la page et le téléphone utilisés. Comme un formateur qui signale « le vidéoprojecteur de la salle 2 ne marche pas » au lieu de laisser les stagiaires se débrouiller.">Sentry</span> note chaque erreur rencontrée par un visiteur, avec la page concernée, pour qu’on la corrige avant qu’on vous la signale.</span></div>
+      <div class="row"><span>Les tests</span><span>Avant chaque mise en ligne, un robot vérifie les liens, les redirections, les titres pour Google, l’accessibilité et la vitesse. Un autre robot propose les mises à jour des outils, une par une, et on ne les accepte qu’après ces tests.</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ MESURER ============ -->
+<section id="mesure" data-name="Mesurer">
+  <h2>Mesurer ce que font vos visiteurs</h2>
+  <p class="sub">Vous voulez savoir ce qui marche. C’est possible, avec deux règles : respecter la loi française, et ne pas tirer de conclusion trop tôt.</p>
+
+  <h3>L’outil : PostHog, hébergé en Europe</h3>
+  <p>Un seul outil pour les statistiques, les <span class="t" data-tip="Une image de votre page où les zones les plus cliquées apparaissent en rouge. Vous voyez par exemple que beaucoup d’élus cliquent sur le prix de la formation SSCT alors que ce n’est pas un lien : signe qu’ils veulent plus de détails à cet endroit.">cartes de chaleur</span> et les <span class="t" data-tip="Montrer deux versions d’une page à deux groupes de visiteurs tirés au hasard, puis compter laquelle obtient le plus de demandes de devis. Comme tester deux accroches de formation sur deux salles, puis garder celle qui remplit le mieux.">tests A/B</span>. Gratuit jusqu’à un million d’événements par mois, largement assez pour vous. Données stockées à Francfort.</p>
+
+  <div class="split">
+    <div>
+      <h3>Pour tous les visiteurs</h3>
+      <p style="font-size:16.5px;margin:0">Des statistiques anonymes, sans bandeau, dans le cadre que la <span class="t" data-tip="La Commission nationale de l’informatique et des libertés, le gendarme des données personnelles en France. Elle autorise à compter les visites sans demander la permission, à condition que ce soit anonyme et réservé à votre usage. Pour tout le reste, il faut l’accord du visiteur.">CNIL</span> autorise :</p>
+      <ul>
+        <li>pages vues, provenance (Google, TikTok, lien direct…)</li>
+        <li>combien de visiteurs arrivent jusqu’au formulaire de devis</li>
+        <li>le nombre de demandes de devis par page</li>
+      </ul>
+      <p class="soft" style="font-size:15px;margin:8px 0 0">À condition de régler l’outil correctement : on le vérifie avec la grille d’auto-évaluation de la CNIL.</p>
+    </div>
+    <div class="off">
+      <h3>Seulement avec l’accord du visiteur</h3>
+      <p style="font-size:16.5px;margin:0">Via un <span class="t" data-tip="Le petit bandeau « Accepter / Refuser » en bas de l’écran. La loi exige que refuser soit aussi simple qu’accepter. Il existe un outil français gratuit (tarteaucitron) et des versions payantes plus simples à régler (Axeptio).">bandeau de consentement</span> :</p>
+      <ul>
+        <li>le suivi détaillé, visiteur par visiteur</li>
+        <li>la mesure de vos <span class="t" data-tip="Votre site contient une balise Google Ads. Si vous payez des annonces, Google a besoin de savoir quelles annonces amènent des demandes de devis pour bien dépenser votre budget. Si ce suivi se coupe le jour du changement de site, Google optimise à l’aveugle. On le rebranche dès le premier jour.">publicités Google</span>, à rebrancher dès le premier jour</li>
+        <li>les cartes de chaleur et les tests A/B</li>
+        <li>les <span class="t" data-tip="Une vidéo anonymisée de la visite : on voit la souris bouger, hésiter, abandonner le formulaire. Très instructif, mais sensible : sur un site qui parle de CSE et de syndicats, ce que tape un élu peut révéler son engagement syndical, une donnée que la loi protège très fortement.">enregistrements de visites</span>, ponctuellement</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn"><b>Un choix de prudence sur les enregistrements de visites.</b> Sur un site qui parle de CSE, de syndicats et de conflits avec l’employeur, ce qu’un élu tape peut révéler une <span class="t" data-tip="Le règlement européen sur les données (RGPD) classe l’appartenance syndicale parmi les « données sensibles », avec la santé ou les opinions politiques. Les collecter, même par accident dans un enregistrement de visite, est interdit sauf exceptions strictes.">donnée sensible</span>. On ne les active donc pas en permanence : seulement pendant de courtes périodes, sur des pages précises, avec les champs de saisie masqués, et jamais sur les formulaires.</div>
+
+  <h3 style="margin-top:30px">Les tests A/B : utiles, mais il faut du monde</h3>
+  <p>Pour savoir qu’une version est vraiment meilleure, et pas juste chanceuse, il faut beaucoup de visiteurs. Et seuls ceux qui acceptent le bandeau comptent, ce qui allonge encore les délais. Jouez avec les réglages ci-dessous : vous verrez pourquoi on ne teste pas la couleur d’un bouton.</p>
+
+  <div class="calc" id="calc">
+    <h3>Combien de temps pour avoir un résultat fiable ?</h3>
+    <p class="soft" style="font-size:16px">Calcul statistique standard (95 % de confiance, 80 % de chances de repérer l’écart s’il existe).</p>
+    <div class="ctrls">
+      <div><label for="v">Visiteurs par mois sur la page testée : <output id="vo">2 000</output></label><input type="range" id="v" min="300" max="20000" step="100" value="2000"></div>
+      <div><label for="p">Sur 100 visiteurs, combien demandent un devis aujourd’hui ?</label><select id="p"><option value="0.01">1</option><option value="0.02" selected>2</option><option value="0.03">3</option><option value="0.05">5</option></select></div>
+      <div><label for="g">Amélioration qu’on veut repérer</label><select id="g"><option value="0.2">+20 % (ex. 2 → 2,4)</option><option value="0.5" selected>+50 % (ex. 2 → 3)</option><option value="1">+100 % (ex. 2 → 4)</option></select></div>
+    </div>
+    <div class="result" aria-live="polite"><span class="big" id="r1">≈ 4 mois</span><span id="r2"></span></div>
+  </div>
+
+  <div class="note">
+    <p><b>La méthode qui en découle.</b> On teste de <b>grosses différences</b> (l’accroche de l’accueil, l’ordre des arguments), jugées sur les <b>demandes de devis</b>, pas sur les clics. En attendant plus de trafic, on apprend autrement : « Comment nous avez-vous connus ? », les cartes de chaleur, et quelques appels aux derniers clients.</p>
+    <p><b>L’IA en renfort.</b> Une fois par mois, <span class="t" data-tip="Un assistant de programmation basé sur l’IA Claude. Relié à PostHog, il peut lire vos statistiques, repérer par exemple que beaucoup de visiteurs quittent la page SSCT avant d’arriver aux tarifs, proposer une nouvelle version et préparer le test. La décision finale reste humaine.">Claude Code</span> lit les statistiques de PostHog (des chiffres globaux, sans nom ni adresse), repère où les visiteurs décrochent et prépare un test. Vous validez avant toute mise en ligne.</p>
+  </div>
+</section>
+
+<!-- ============ GOOGLE ============ -->
+<section id="google" data-name="Google et la migration">
+  <h2>Être trouvé sur Google, et ne rien perdre en déménageant</h2>
+  <p class="sub">Le <span class="t" data-tip="Le référencement naturel, en anglais SEO : tout ce qui fait qu’un élu qui tape « formation CSE obligatoire » sur Google tombe sur vous plutôt que sur un concurrent, sans que vous payiez l’annonce.">référencement</span> se prépare dans la construction même du site, et se protège pendant le déménagement.</p>
+
+  <h3>Construit dans le site, une fois pour toutes</h3>
+  <div class="note">
+    <p><b>Un titre unique par page</b>, vérifié par un robot. Aujourd’hui, quatre de vos pages se disputent « formation CSE » sur Google, ce qui affaiblit les quatre. Chacune aura son sujet.</p>
+    <p><b>Des <span class="t" data-tip="Des étiquettes invisibles pour le visiteur, mais lues par Google : « ceci est une formation, durée 5 jours, à Lyon, le 14 janvier ». Google peut alors afficher vos sessions directement dans ses résultats, avec la date.">données structurées</span></b> générées automatiquement pour vos formations, vos sessions, votre FAQ et vos formateurs.</p>
+    <p><b>Un <span class="t" data-tip="Le sommaire de votre site, envoyé à Google et Bing, pour qu’ils n’oublient aucune page. Il se met à jour tout seul à chaque nouvelle page publiée.">plan du site</span> automatique</b>, envoyé à Google et à Bing (qui pèse environ 16 % des recherches sur ordinateur en France), et des pages qui laissent les IA comme ChatGPT les lire et vous citer.</p>
+    <p><b>Vos résultats Qualiopi bien visibles.</b> Le <span class="t" data-tip="Le référentiel Qualiopi, c’est la grille de l’auditeur qui vous a certifiés. Son indicateur 2 demande d’afficher publiquement vos résultats, par exemple le taux de satisfaction de vos stagiaires, avec le nombre de réponses et la période. Un élu qui compare trois organismes regarde ce chiffre. Le site leur donnera une place claire.">référentiel Qualiopi</span> demande de publier des indicateurs de résultats, comme le taux de satisfaction. Je ne les ai pas trouvés sur les pages principales du site actuel : on leur prévoit une place claire.</p>
+  </div>
+
+  <h3 style="margin-top:28px">Le déménagement sans perdre Google</h3>
+  <p>Une petite baisse de quelques jours à quelques semaines est fréquente après une refonte. On la limite ainsi :</p>
+  <ol class="steps">
+    <li><b>Avant :</b> une « photo » de chaque page actuelle (titre, position sur Google), prise avec <span class="t" data-tip="Un outil d’audit SEO open source qui tourne avec l’IA Claude. En 15 minutes, il passe votre site au crible comme le ferait un consultant, et il garde une photo de chaque page pour comparer après la refonte. Il a déjà été testé sur qualyz.fr.">Claude SEO</span> et la <span class="t" data-tip="L’outil gratuit de Google qui montre ce que les gens tapent avant d’arriver chez vous, et à quelle position vous apparaissez. Par exemple : combien de fois vous êtes apparus sur « formation SSCT CSE » ce mois-ci, et à quelle place. Indispensable pour voir si le déménagement se passe bien.">Search Console</span>.</li>
+    <li><b>Avant :</b> une <span class="t" data-tip="Un panneau « nous avons déménagé, c’est par ici » posé sur une ancienne adresse de page. Google et les visiteurs qui avaient l’ancien lien sont envoyés automatiquement vers la nouvelle page, et Google transfère sa confiance à la nouvelle adresse.">redirection 301</span> pour chaque ancienne adresse qui change, vérifiée par un robot.</li>
+    <li><b>Jour J :</b> un matin de semaine calme. On change la flèche du site, on prévient Google et Bing, et on vérifie que les demandes de devis et le suivi Google Ads remontent bien.</li>
+    <li><b>Après :</b> comparaison chaque semaine avec la photo d’avant, pendant 2 mois. Les 55 nouvelles pages arrivent ensuite, par lots.</li>
+  </ol>
+
+  <div class="note" style="margin-top:14px">
+    <p><b>L’outil de mots-clés.</b> Pour connaître le nombre de recherches et surveiller vos concurrents, on commence avec <span class="t" data-tip="Un outil français qui indique combien de personnes cherchent chaque expression par mois (« formation trésorier CSE », par exemple) et quelles pages concurrentes sont devant vous. Les outils américains équivalents (Ahrefs, Semrush) font plus, mais coûtent plusieurs fois plus cher.">Haloscan</span>, un outil français (490 à 790 € par an). On passera à un outil plus lourd seulement si le besoin apparaît.</p>
+  </div>
+</section>
+
+<!-- ============ LE DÉROULÉ ============ -->
+<section id="deroule" data-name="Le déroulé">
+  <h2>Le déroulé de la refonte</h2>
+  <p class="sub">Trois étapes, dans cet ordre. On ne change qu’une chose à la fois, pour ne rien casser.</p>
+
+  <div class="phases">
+    <div class="phase now">
+      <span class="when">Étape 1 · 2 semaines</span>
+      <h3>Le nouveau site</h3>
+      <ul>
+        <li>Les 20 pages actuelles réécrites pour Google</li>
+        <li>Redirections, domaine, images allégées</li>
+        <li>Calendrier des sessions, devis, rendez-vous</li>
+        <li>Mesure des visites</li>
+      </ul>
+      <p class="gate">Le site change, vos adresses et vos mails restent.</p>
+    </div>
+    <div class="phase">
+      <span class="when">Étape 2 · 1 à 2 semaines</span>
+      <h3>L’espace client</h3>
+      <ul>
+        <li>Connexion par <span class="t" data-tip="Pas de mot de passe à retenir : l’élu tape son adresse mail, reçoit un lien, clique, il est connecté. Idéal pour un public peu à l’aise avec le numérique, qui oublie ses mots de passe d’une formation à l’autre.">lien envoyé par mail</span>, ou avec Google et Microsoft</li>
+        <li>Un espace par CSE, étanche : documents de formation, questionnaires avant et après</li>
+      </ul>
+      <p class="gate">Il manipule des données d’élus : on le lance une fois le site stable, avec des tests sérieux.</p>
+    </div>
+    <div class="phase">
+      <span class="when">Étape 3 · par lots</span>
+      <h3>Les 55 nouvelles pages</h3>
+      <ul>
+        <li>Depuis votre liste de mots-clés</li>
+        <li>5 à 10 pages à la fois, une fois Google rassuré par le déménagement</li>
+      </ul>
+      <p class="gate">Le rythme dépend surtout de qui rédige et relit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CE QUI VOUS APPARTIENT ============ -->
+<section id="propriete" data-name="Ce qui vous appartient">
+  <h2>Ce qui vous appartient, noir sur blanc</h2>
+  <p class="sub">La meilleure protection contre la <span class="t" data-tip="Être coincé chez un fournisseur ou une personne parce que partir coûterait trop cher. Exemple : un site dont seul le développeur a les codes. S’il disparaît, vous perdez la main sur votre propre vitrine.">dépendance</span>, y compris à votre développeur.</p>
+  <div class="tbl"><table>
+    <tr><th>Quoi</th><th>Comment</th></tr>
+    <tr><td>Les comptes</td><td>Tous ouverts avec une adresse @qualyz.fr, avec <b>deux administrateurs chez vous</b>. Le développeur n’est qu’invité.</td></tr>
+    <tr><td>Le code</td><td>Rangé dans un <span class="t" data-tip="Un coffre en ligne (GitHub) qui contient tout le code du site et l’historique de chaque modification : qui a changé quoi, quand, et pourquoi. Il appartient à Qualyz. Un nouveau développeur y trouve tout pour reprendre.">dépôt de code</span> au nom de Qualyz, avec une notice qui explique pas à pas comment tout reprendre.</td></tr>
+    <tr><td>Les données</td><td>Dans une base standard, sauvegardée chaque jour, plus une copie chaque semaine chez un second fournisseur.</td></tr>
+    <tr><td>Les décisions</td><td>Chaque choix de ce document est noté avec sa date et ce qui nous ferait changer d’avis, pour qu’un successeur comprenne le pourquoi.</td></tr>
+  </table></div>
+  <p class="soft" style="font-size:16.5px">La preuve : avant la fin de la mission, un autre développeur installe le site et modifie une page avec la seule notice.</p>
+</section>
+
+
+<!-- ============ PLANNING ============ -->
+<section id="planning" data-name="Le planning">
+  <h2>Les deux semaines, en cinq étapes</h2>
+  <p class="sub">Dix jours ouvrés, si les accès et les validations arrivent à temps.</p>
+  <ol class="steps">
+    <li><b>Préparer</b> <span class="d">jours 1-2</span><br>Les accès, la copie des réglages DNS et mails, la photo SEO, la création des comptes au nom de Qualyz, le choix du design avec vous.</li>
+    <li><b>Construire</b> <span class="d">jours 3-4</span><br>Les modèles de pages : accueil, formation, guide, ville, formateur.</li>
+    <li><b>Remplir</b> <span class="d">jours 5-6</span><br>Les 20 pages actuelles réécrites : titres, textes, images, données pour Google.</li>
+    <li><b>Brancher</b> <span class="d">jours 7-8</span><br>Formulaire de devis, sessions, rendez-vous, mesure et bandeau, redirections, filet de sécurité.</li>
+    <li><b>Basculer</b> <span class="d">jours 9-10</span><br>Votre validation, la mise en ligne un matin calme, la surveillance, et une heure de formation à l’administration.</li>
+  </ol>
+  <div class="warn"><b>Ce qui peut faire déraper :</b> des accès introuvables (domaine, Google, logiciel de formation), des validations qui attendent plusieurs jours, ou l’envie d’ajouter l’espace client dans ces deux semaines.</div>
+</section>
+
+<!-- ============ COÛTS ============ -->
+<section id="couts" data-name="Les coûts">
+  <h2>Ce que ça coûte chaque mois</h2>
+  <p class="sub">Les outils seulement, hors temps de travail. Prix relevés le 11 novembre 2026 sur les sites des éditeurs.</p>
+  <div class="tbl"><table>
+    <tr><th>Outil</th><th>Rôle</th><th>Prix</th></tr>
+    <tr><td>Vercel Pro</td><td>Héberger le site</td><td class="n">20 $ / mois</td></tr>
+    <tr><td>Supabase Pro</td><td>La base de données et les fichiers</td><td class="n">25 $ / mois</td></tr>
+    <tr><td>Haloscan</td><td>Les mots-clés et les concurrents</td><td class="n">490 à 790 € / an</td></tr>
+    <tr><td>PostHog</td><td>Mesurer et tester</td><td class="n">0 € à votre trafic</td></tr>
+    <tr><td>Sonde, carnet d’erreurs</td><td>Le filet de sécurité</td><td class="n">0 € au départ</td></tr>
+    <tr><td>Bandeau de consentement</td><td>L’accord des visiteurs</td><td class="n">0 € ou payant</td></tr>
+    <tr><td>Next.js, Payload, Claude SEO</td><td>Construire, administrer, auditer</td><td class="n">0 € (open source)</td></tr>
+    <tr><td>Copie de sauvegarde hebdomadaire</td><td>Le second panier</td><td class="n">quelques € / mois</td></tr>
+    <tr class="total"><td>Total de départ</td><td>45 $ (≈ 40 €) + Haloscan (41 à 66 € par mois) + petites lignes</td><td class="n">≈ 85 à 110 €</td></tr>
+  </table></div>
+  <p class="soft" style="font-size:16.5px">À comparer avec l’abonnement Squarespace, qui disparaît. Google Workspace (vos mails) ne change pas. Le bandeau est gratuit avec tarteaucitron (outil français) ou payant avec Axeptio, plus simple à régler. Les offres gratuites de la sonde et du carnet d’erreurs ont des limites : on les confirmera à l’inscription.</p>
+</section>
+
+<!-- ============ À VOUS ============ -->
+<section id="vous" data-name="À vous de jouer">
+  <h2>Ce qu’on attend de vous</h2>
+  <p class="sub">Quatre décisions et quelques accès. Cochez au fur et à mesure.</p>
+  <ul class="decide">
+    <li><input type="checkbox" id="d1" aria-label="Fait"><label for="d1"><b>Les accès</b><span>Le compte où est géré le domaine, l’administration Google Workspace, la Search Console, Google Ads et votre logiciel de formation s’il y en a un.</span></label></li>
+    <li><input type="checkbox" id="d2" aria-label="Fait"><label for="d2"><b>Où atterrissent vos demandes de devis ?</b><span>Juste votre boîte mail, ou aussi un outil de suivi des prospects (un <span class="t" data-tip="Un carnet de suivi de vos prospects : qui a demandé un devis, quand, pour quelle formation, où en est la relance. Avec lui, vous pouvez enfin dire « la page SSCT nous a rapporté tant de clients ce trimestre ». HubSpot propose une version gratuite.">CRM</span>) ? Si vous n’en avez pas, on peut s’en passer au début.</span></label></li>
+    <li><input type="checkbox" id="d5" aria-label="Fait"><label for="d5"><b>Utilisez-vous un logiciel de gestion de formation ?</b><span>Digiforma, Dendreo ou autre : si oui, on vérifie s’il peut envoyer vos sessions au site. Sinon, vous les saisirez dans l’administration.</span></label></li>
+    <li><input type="checkbox" id="d6" aria-label="Fait"><label for="d6"><b>Qui écrit les 55 nouvelles pages ?</b><span>Vous, un rédacteur, ou nous, puis votre relecture juridique. C’est ce qui fixe le rythme de publication après les deux semaines.</span></label></li>
+    <li><input type="checkbox" id="d3" aria-label="Fait"><label for="d3"><b>Quand voulez-vous l’espace client ?</b><span>Juste après le site, ou plus tard ? Il demande 1 à 2 semaines de plus.</span></label></li>
+  </ul>
+
+  <div class="end">
+    <h2>En une phrase</h2>
+    <p><b>Un site sur mesure, qui vous appartient, que vous modifiez seuls, et qui mesure ce qui vous amène des clients.</b></p>
+  </div>
+
+  <div class="src">
+    <p><b>Vérifié le 11 novembre 2026.</b> Sur qualyz.fr et ses réglages publics : messagerie Google Workspace (SPF, DKIM, DMARC présents), domaine enregistré le 5 avril 2025 et valable jusqu’au 5 avril 2027, prise de rendez-vous Google Agenda sur la page Contact, balises Google Tag Manager et Google Ads, 36 adresses dans le plan du site. Versions : Next.js 16.4, Payload 3.93 (interface traduite en français, rejoint Figma en 2025). Prix : pages tarifs de Vercel, Supabase, PostHog et Haloscan. Règles : CNIL (mesure d’audience exemptée de consentement), RGPD article 9. Part de Bing : StatCounter 2026.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* Bulles d'explication : une seule bulle, placée au-dessus du mot (ou dessous s'il n'y a pas la place) */
+(() => {
+  const tip = document.createElement('div');
+  tip.className = 'tip'; tip.id = 'tip'; tip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tip);
+  let cur = null;
+  const place = el => {
+    const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = Math.max(12, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 12));
+    let y = r.top - h - 10;
+    if (y < 56) y = r.bottom + 10;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  };
+  const show = el => { if (cur) cur.removeAttribute('aria-describedby'); cur = el; tip.textContent = el.dataset.tip; el.setAttribute('aria-describedby', 'tip'); tip.classList.add('on'); place(el); };
+  const hide = () => { if (cur) cur.removeAttribute('aria-describedby'); cur = null; tip.classList.remove('on'); };
+  document.querySelectorAll('.t').forEach(el => {
+    el.tabIndex = 0;
+    el.addEventListener('mouseenter', () => show(el));
+    el.addEventListener('mouseleave', () => { if (document.activeElement !== el) hide(); });
+    el.addEventListener('focus', () => show(el));
+    el.addEventListener('blur', hide);
+    el.addEventListener('click', e => { e.preventDefault(); cur === el && matchMedia('(hover:none)').matches ? hide() : show(el); });
+  });
+  addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+  addEventListener('scroll', () => { if (cur) place(cur); }, { passive: true });
+  document.addEventListener('touchstart', e => { if (cur && !e.target.closest('.t')) hide(); }, { passive: true });
+})();
+
+/* Barre de lecture : section en cours et minutes restantes (environ 10 min au total) */
+(() => {
+  const fill = document.getElementById('fill'), left = document.getElementById('left'), here = document.getElementById('here');
+  const secs = [...document.querySelectorAll('section[data-name]')];
+  const TOTAL = 12;
+  const tick = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const f = max > 0 ? Math.min(1, scrollY / max) : 1;
+    fill.style.width = (f * 100) + '%';
+    const m = Math.ceil(TOTAL * (1 - f));
+    left.textContent = m <= 0 ? 'Terminé' : m + ' min restante' + (m > 1 ? 's' : '');
+    let name = 'Introduction';
+    for (const s of secs) if (s.getBoundingClientRect().top < innerHeight * 0.35) name = s.dataset.name;
+    here.textContent = name;
+  };
+  addEventListener('scroll', tick, { passive: true }); addEventListener('resize', tick); tick();
+})();
+
+/* Calculateur de test A/B : taille d'échantillon pour comparer deux proportions (alpha 5 % bilatéral, puissance 80 %) */
+(() => {
+  const v = document.getElementById('v'), p = document.getElementById('p'), g = document.getElementById('g');
+  const vo = document.getElementById('vo'), r1 = document.getElementById('r1'), r2 = document.getElementById('r2');
+  const fmt = n => Math.round(n).toLocaleString('fr-FR');
+  const run = () => {
+    const visits = +v.value, p1 = +p.value, p2 = p1 * (1 + +g.value);
+    const z = 1.96 + 0.8416;
+    const n = Math.ceil(z * z * (p1 * (1 - p1) + p2 * (1 - p2)) / ((p2 - p1) ** 2));
+    const months = (2 * n) / visits;
+    vo.textContent = fmt(visits);
+    let dur;
+    if (months < 1) dur = '≈ ' + Math.max(1, Math.round(months * 4.3)) + ' semaine' + (Math.round(months * 4.3) > 1 ? 's' : '');
+    else if (months < 24) dur = '≈ ' + (months < 10 ? months.toFixed(1).replace('.', ',') : Math.round(months)) + ' mois';
+    else dur = 'plus de ' + Math.floor(months / 12) + ' ans';
+    r1.textContent = dur;
+    r2.innerHTML = 'Il faut environ <b>' + fmt(n) + ' visiteurs par version</b>, soit <b>' + fmt(2 * n) + '</b> au total, pour savoir si l’on passe de <b>' +
+      (p1 * 100).toLocaleString('fr-FR') + '</b> à <b>' + (+(p2 * 100).toFixed(1)).toLocaleString('fr-FR') + '</b> devis pour 100 visiteurs.' +
+      (months > 3 ? ' C’est trop long pour un détail : on réserve les tests aux grands changements.' : ' C’est jouable : un bon candidat pour un test.');
+  };
+  [v, p, g].forEach(el => el.addEventListener('input', run)); run();
+})();
+</script>
+</body>
+</html>
