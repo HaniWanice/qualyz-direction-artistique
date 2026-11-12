@@ -143,7 +143,7 @@ p{margin:0}
 [data-theme="p8"]{--s-bg:#ECEEE7; --s-surface:#FAFBF7; --s-ink:#232E26; --s-head:#0D4645; --s-muted:#556157; --s-line:#D6DBCF; --s-btn:#0D4645; --s-btn-ink:#FFFFFF; --s-accent:#239F9D; --s-accent-ink:#14706E; --s-soft:#DCE6D9; --s-warm:#E8E1CE; --s-hero:#2F4A3A; --s-hero-ink:#F3F2EA; --s-hero-muted:#C3CDBF; --s-accent-hero:#A8DCCF; --s-logo:#239F9D}
 
 /* ---------- mini-site base ---------- */
-.site{container-type:inline-size; position:relative; overflow:hidden; background:var(--s-bg); color:var(--s-ink); font-family:var(--fb); transition:background-color .4s}
+.site{container-type:inline-size; position:relative; overflow:hidden; background:var(--s-bg); color:var(--s-ink); font-family:var(--fb)}
 .site{--s-fh:var(--fd); --s-fw:400; --s-ls:-.015em}
 .s-in{padding:3.2cqi 4.4cqi 4.4cqi}
 .s-nav{display:flex; align-items:center; gap:2.4cqi; margin-bottom:5.4cqi}
@@ -207,7 +207,7 @@ p{margin:0}
 .l-center .s-cards{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1.8cqi; margin-top:5cqi}
 .l-center .s-card{position:relative; aspect-ratio:3/4; border-radius:2.4cqi; overflow:hidden; display:flex; align-items:flex-end; padding:2.2cqi; color:var(--s-hero-ink)}
 .l-center .s-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
-.l-center .s-card::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, color-mix(in srgb, var(--s-hero) 88%, transparent))}
+.l-center .s-card::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--s-hero) 70%, transparent) 65%, color-mix(in srgb, var(--s-hero) 96%, transparent))}
 .l-center .s-card b{position:relative; font-size:clamp(15px, 2cqi, 22px)}
 /* L6 bento */
 .l-bento .s-bento{display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:1.6cqi}
@@ -281,28 +281,31 @@ p{margin:0}
   .l-split .s-row img{width:72px; border-radius:8px}
   .l-split .s-row span{grid-column:2}
   .l-mag .s-mcard img{aspect-ratio:16/10}
+  .l-show .s-tiles{grid-template-columns:minmax(0, 1fr)}
+  .s-strip{padding:22px 20px}
+  .s-strip .s-btn{margin-left:0}
+  .s-callout{border-radius:14px; padding:16px}
 }
 
-/* palettes section */
-.pals{display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:18px}
-.pal{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:14px 14px 18px; display:flex; flex-direction:column}
-.pal__demo{border-radius:14px; padding:18px; background:var(--s-bg); color:var(--s-ink); display:grid; gap:10px; border:1px solid var(--s-line)}
-.pal__demo b{font-family:var(--fd); font-weight:400; font-size:24px; line-height:1.1; color:var(--s-head)}
-.pal__demo b em{font-style:normal; color:var(--s-accent-ink)}
-.pal__demo p{font-size:14.5px; color:var(--s-muted)}
-.pal__demo div{display:flex; gap:6px; align-items:center}
-.pal__demo span{border-radius:99px; padding:6px 12px; font-size:13px; font-weight:700; background:var(--s-btn); color:var(--s-btn-ink)}
-.pal__demo span + span{background:var(--s-soft); color:var(--s-head)}
-.pal__hero{height:34px; border-radius:9px; background:var(--s-hero); display:flex; align-items:center; padding:0 10px; gap:6px}
-.pal__hero i{width:46px; height:7px; border-radius:9px; background:var(--s-hero-ink); opacity:.85}
-.pal__hero i + i{width:22px; background:var(--s-accent-hero)}
-.pal__sw{display:flex; gap:5px; margin-top:12px}
-.pal__sw i{flex:1; height:22px; border-radius:6px; box-shadow:inset 0 0 0 1px var(--hair-3)}
-.pal h3{font-size:21px; margin-top:12px}
-.pal > p{font-size:15.5px; color:var(--muted); margin-top:4px}
-.pal__use{align-self:flex-start; margin-top:10px; min-height:40px; border:0; border-radius:99px; padding:6px 14px; background:var(--chip); color:var(--deep); font-weight:700; font-size:14px}
-.pal .rate{margin-top:auto; padding-top:14px}
-.pal .rate__row{grid-template-columns:repeat(5, minmax(0, 1fr))}
+/* palettes section: one full-width showcase per palette */
+.pals{display:grid; grid-template-columns:minmax(0, 1fr); gap:64px}
+.pal{display:grid; gap:16px; min-width:0}
+.pal__head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:14px 28px}
+.pal__head h3{font-size:clamp(28px, 3vw, 38px)}
+.pal__head p{font-size:17.5px; color:var(--muted); max-width:52ch; margin-top:6px}
+.pal__sw{display:flex; flex-wrap:wrap; gap:8px}
+.pal__sw span{display:grid; gap:4px; justify-items:center; font-size:12.5px; font-weight:600; color:var(--muted); font-variant-numeric:tabular-nums}
+.pal__sw i{width:60px; height:44px; border-radius:10px; box-shadow:inset 0 0 0 1px var(--hair-3)}
+.pal__use{justify-self:start; min-height:44px; border:0; border-radius:99px; padding:8px 18px; background:var(--chip); color:var(--deep); font-weight:700; font-size:15.5px}
+.pal__use:hover{background:var(--chip-2)}
+.pal .rate{margin-top:0}
+.s-strip{display:flex; flex-wrap:wrap; align-items:center; gap:2cqi 4cqi; padding:3.4cqi 4.4cqi}
+.s-strip b{font-family:var(--s-fh); font-weight:var(--s-fw); font-size:clamp(30px, 4.6cqi, 56px); line-height:1; color:var(--s-head)}
+.s-strip p{color:var(--s-muted); font-size:clamp(14px, 1.7cqi, 19px); max-width:36ch}
+.s-strip .s-btn{margin-left:auto}
+.l-show .s-tiles{grid-template-columns:repeat(4, minmax(0, 1fr))}
+.s-callout{margin-top:3cqi; background:var(--s-soft); border-radius:2cqi; padding:2.6cqi 3cqi; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:2cqi; color:var(--s-head)}
+.s-callout b{font-family:var(--s-fh); font-weight:var(--s-fw); font-size:clamp(18px, 2.4cqi, 28px)}
 
 /* tone */
 .tons{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:20px}
@@ -542,7 +545,6 @@ footer div{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px
   .top nav{display:none}
   .prog{margin-left:auto}
   .tons, .icfams, .lgpair{grid-template-columns:minmax(0, 1fr)}
-  .pals{grid-template-columns:repeat(2, minmax(0, 1fr))}
   .refs, .lgcards{grid-template-columns:repeat(2, minmax(0, 1fr))}
   .cmp{grid-template-columns:minmax(0, 1fr)}
   .sum, .free{grid-template-columns:minmax(0, 1fr)}
@@ -562,7 +564,8 @@ footer div{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px
   .pchip{flex:none}
   .rate__row{grid-template-columns:repeat(5, minmax(0, 1fr)); max-width:none; gap:6px}
   .rate__row button{min-height:46px}
-  .pals, .refs, .lgcards, .vit{grid-template-columns:minmax(0, 1fr)}
+  .refs, .lgcards, .vit{grid-template-columns:minmax(0, 1fr)}
+  .pal__sw i{width:44px; height:34px}
   .libgrid .ico{width:46px; height:46px}
   .libgrid svg{width:30px; height:30px}
   .libgrid figcaption{font-size:11.5px}
@@ -629,8 +632,8 @@ footer div{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px
 
   <section class="sec wrap" id="palettes">
     <div class="sec__head">
-      <h2>Huit palettes de couleurs</h2>
-      <p>Toutes gardent votre logo et votre turquoise. Notez celles qui vous ressemblent, puis appliquez-les aux pages d’accueil pour voir ce que ça donne en vrai.</p>
+      <h2>Huit palettes de couleurs, en action</h2>
+      <p>Chaque palette sur une page complète : le fond, les titres, les boutons, le bandeau de couleur et les cartes. Toutes gardent votre logo et votre turquoise. Un bouton l’applique aussi aux huit pages d’accueil.</p>
     </div>
     <div class="pals" id="pals"></div>
   </section>
@@ -717,7 +720,7 @@ footer div{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px
     </div>
     <footer>
       <div><span>Maquettes de travail pour Qualyz, novembre 2026. Les dates de sessions sont des exemples.</span><a href="choix-techniques.html">Les choix techniques, expliqués simplement</a></div>
-      <p>Photos provisoires : <a href="https://commons.wikimedia.org/wiki/File:GloMEEP_Global_train-the-trainer_(27214134811).jpg">International Maritime Organization</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Drilling_Roughnecks_(8744524276).jpg">NIOSH</a> (domaine public), <a href="https://commons.wikimedia.org/wiki/File:HGN_meeting,_Tbilisi_2024_5.jpg">Kamila Neuman</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Meeting_with_lawyer_during_HGN_Tbilisi_workshop.jpg">OlesiaLukaniuk</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Woman_using_a_laptop_in_a_meeting_room_(30849337807).jpg">Rawpixel</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:HGN_meeting,_Tbilisi_2024_1.jpg">Kamila Neuman</a> (CC BY-SA 4.0). Icônes : Lucide, Tabler, Heroicons, Iconoir, Phosphor, Solar, Material Symbols, Hugeicons, MingCute, Remix Icon, Fluent UI.</p>
+      <p>Photos d’illustration provisoires, remplacées par le shooting de décembre. Icônes : Lucide, Tabler, Heroicons, Iconoir, Phosphor, Solar, Material Symbols, Hugeicons, MingCute, Remix Icon, Fluent UI.</p>
     </footer>
   </section>
 </main>

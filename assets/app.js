@@ -25,7 +25,9 @@ const PALS = [
 
 /* ---------- shared mini-site content ---------- */
 const FORMS = [['f-ssct','Formation SSCT','Santé, sécurité et conditions de travail'], ['f-eco','Formation économique','Comprendre les comptes de l’entreprise'], ['f-harc','Référent harcèlement','Prévenir, écouter, agir'], ['f-ia','Formation IA du CSE','Utiliser l’IA dans votre mandat']];
-const img = (f, alt = '') => `<img src="assets/${f}.jpg" alt="${alt}" loading="lazy">`;
+/* focal point of each photo, so faces stay in frame whatever the crop */
+const FOCUS = {'f-formation':'50% 40%', 'f-elus':'38% 35%', 'f-ssct':'50% 25%', 'f-eco':'55% 40%', 'f-harc':'60% 30%', 'f-ia':'38% 40%', 'f-visio':'40% 35%'};
+const img = (f, alt = '') => `<img src="assets/${f}.jpg" alt="${alt}" loading="lazy" style="object-position:${FOCUS[f] || 'center'}">`;
 const NAV = `<div class="s-nav"><span class="logo" role="img" aria-label="Qualyz"></span><span class="s-links"><span>Formations</span><span>Financement</span><span>À propos</span></span><span class="s-cta">Demander un devis</span></div>`;
 const H1 = `<h4 class="s-h1">Formez vos élus CSE avec un organisme <em>certifié</em>.</h4>`;
 const SUB = `<p class="s-sub">SSCT, économique, référent harcèlement : en présentiel partout en France ou à distance, aux dates qui vous arrangent.</p>`;
@@ -34,20 +36,23 @@ const PROOF = `<div class="s-proof"><img src="assets/qualiopi.png" alt="Certifi�
 const TEXT = `<div class="s-text">${H1}${SUB}${BTNS}${PROOF}</div>`;
 const TILES = (n = 3) => `<div class="s-tiles">${FORMS.slice(0, n).map(f => `<div class="s-tile">${img(f[0])}<div><b>${f[1]}</b><span>Voir la formation</span></div></div>`).join('')}</div>`;
 const LAYOUT = {
-  edito: () => `<div class="s-in">${NAV}<div class="s-grid">${TEXT}<div class="s-photo">${img('f-eco', 'Élus en formation autour d’une table')}</div></div>${TILES()}</div>`,
-  band: () => `<div class="s-hero">${NAV}<div class="s-grid">${TEXT}<div class="s-photo">${img('f-formation', 'Formatrice qui présente')}</div></div></div><div class="s-in">${TILES()}</div>`,
-  full: () => `<div class="s-cover">${img('f-formation', 'Formatrice qui présente')}${NAV}${TEXT}</div>${TILES()}`,
-  soft: () => `<div class="s-in"><div class="s-panel"><span class="colibri" aria-hidden="true"></span>${NAV}<div class="s-grid">${TEXT}<div class="s-duo">${img('f-visio')}${img('f-harc')}</div></div></div>${TILES()}</div>`,
+  edito: () => `<div class="s-in">${NAV}<div class="s-grid">${TEXT}<div class="s-photo">${img('f-formation', 'Élus en formation autour d’une table')}</div></div>${TILES()}</div>`,
+  band: () => `<div class="s-hero">${NAV}<div class="s-grid">${TEXT}<div class="s-photo">${img('f-elus', 'Une élue en formation, souriante')}</div></div></div><div class="s-in">${TILES()}</div>`,
+  full: () => `<div class="s-cover">${img('f-visio', 'Formation à distance en visio')}${NAV}${TEXT}</div>${TILES()}`,
+  soft: () => `<div class="s-in"><div class="s-panel"><span class="colibri" aria-hidden="true"></span>${NAV}<div class="s-grid">${TEXT}<div class="s-duo">${img('f-elus')}${img('f-ia')}</div></div></div>${TILES()}</div>`,
   center: () => `<div class="s-in">${NAV}${TEXT}<div class="s-cards">${FORMS.slice(0, 3).map(f => `<div class="s-card">${img(f[0])}<b>${f[1]}</b></div>`).join('')}</div></div>`,
   bento: () => `<div class="s-in">${NAV}<div class="s-bento">
       <div class="b b-main">${H1}${SUB}${BTNS}</div>
-      <div class="b b-photo">${img('f-formation', 'Formatrice qui présente')}</div>
+      <div class="b b-photo">${img('f-formation', 'Élus en formation autour d’une table')}</div>
       <div class="b b-num"><b>600+</b><span>élus de CSE formés en 2026</span></div>
       <div class="b b-proof"><img src="assets/qualiopi.png" alt="Certifié Qualiopi"><span class="s-g">${GLOGO} Nos avis Google</span></div>
       ${FORMS.slice(0, 3).map(f => `<div class="b b-tile">${img(f[0])}<div><b>${f[1]}</b><span>Voir la formation</span></div></div>`).join('')}
       <div class="b b-all"><b>Toutes nos formations</b><span>Voir le catalogue</span></div></div></div>`,
-  split: () => `<div class="s-split"><div class="s-pane">${NAV}${TEXT}</div><div class="s-side">${img('f-formation', 'Formatrice qui présente')}</div></div>
+  split: () => `<div class="s-split"><div class="s-pane">${NAV}${TEXT}</div><div class="s-side">${img('f-elus', 'Une élue en formation, souriante')}</div></div>
       <div class="s-rows">${FORMS.map(f => `<div class="s-row">${img(f[0])}<div><b>${f[1]}</b><p>${f[2]}</p></div><span>Voir</span></div>`).join('')}</div>`,
+  show: () => `<div class="s-in">${NAV}<div class="s-grid">${TEXT}<div class="s-photo">${img('f-elus', 'Une élue en formation, souriante')}</div></div></div>
+      <div class="s-hero s-strip"><b>600+</b><p>élus de CSE formés en 2026, partout en France et à distance.</p><span class="s-btn">Demander un devis</span></div>
+      <div class="s-in">${TILES(4)}<div class="s-callout"><b>On vous rappelle sous 15 minutes.</b><span class="s-btn alt">Être rappelé</span></div></div>`,
   mag: () => `<div class="s-in">${NAV}${H1}<div class="s-line">${SUB}<div>${BTNS}${PROOF}</div></div><div class="s-mcards">${FORMS.slice(0, 3).map(f => `<div class="s-mcard">${img(f[0])}<b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div>`
 };
 const DIRS = [
@@ -80,10 +85,9 @@ applyPal();
 
 $('#pals').innerHTML = PALS.map(p => `
   <article class="pal">
-    <div class="pal__demo" data-theme="p${p.k}"><div class="pal__hero"><i></i><i></i></div><b>Vos élus, <em>bien formés</em>.</b><p>SSCT, économique, harcèlement.</p><div><span>Devis</span><span>Rappel</span></div></div>
-    <div class="pal__sw" aria-hidden="true">${p.sw.map(c => `<i style="background:${c}"></i>`).join('')}</div>
-    <h3>${p.n}</h3><p>${p.d}</p>
-    <button class="pal__use" data-use="${p.k}">Voir sur les pages d’accueil</button>
+    <div class="pal__head"><div><h3>${p.n}</h3><p>${p.d}</p></div><div class="pal__sw" aria-hidden="true">${p.sw.map(c => `<span><i style="background:${c}"></i>${c}</span>`).join('')}</div></div>
+    <div class="scr"><div class="scr__bar"><i></i><i></i><i></i><span>qualyz.fr</span></div><div class="site l-show" data-theme="p${p.k}">${LAYOUT.show()}</div></div>
+    <button class="pal__use" data-use="${p.k}">Appliquer aux 8 pages d’accueil</button>
     ${rateSlot('cp-' + p.k, 'Couleurs : ' + p.n)}
   </article>`).join('');
 $('#pals').addEventListener('click', e => { const b = e.target.closest('[data-use]'); if (!b) return; palPick = +b.dataset.use; applyPal(); $('#styles').scrollIntoView(); });
